@@ -11,7 +11,7 @@
 
 ## 🚧 Unreleased
 
-> 当前在 master 分支上**未发布**的改动。最近一次 commit：`9146e06`
+> 当前在 master 分支上**未发布**的改动。最近一次 commit：`1ebca6b`（v1.0.0 tag）
 
 ### 🆕 新增功能 / 系统
 

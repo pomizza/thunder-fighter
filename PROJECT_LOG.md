@@ -335,7 +335,7 @@ if (this.state === 'levelClear' && this.player && this.player.alive
 ## 📜 项目时间线
 
 ```
-2024 - 项目启动
+2026 - 项目启动
   ↓
 20 轮迭代（轮 1-20）
   ↓

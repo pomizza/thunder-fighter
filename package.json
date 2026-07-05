@@ -8,14 +8,16 @@
     "test:config": "node tests/runner.cjs test-config.cjs",
     "test:achievements": "node tests/runner.cjs test-achievements.cjs",
     "test:difficulty": "node tests/runner.cjs test-difficulty.cjs",
+    "test:enemies": "node tests/runner.cjs test-enemies.cjs",
+    "test:gameflow": "node tests/runner.cjs test-gameflow.cjs",
+    "test:performance": "node tests/runner.cjs test-performance.cjs",
+    "test:replay": "node tests/runner.cjs test-replay.cjs",
     "test:shipSelect": "node tests/runner.cjs test-shipSelect.cjs",
     "test:shop": "node tests/runner.cjs test-shop.cjs",
-    "test:replay": "node tests/runner.cjs test-replay.cjs",
-    "test:gameflow": "node tests/runner.cjs test-gameflow.cjs",
-    "start": "python3 -m http.server 8000",
-    "serve": "python3 -m http.server 8000",
     "coverage": "node tests/coverage.cjs",
-    "stats": "node tests/coverage.cjs"
+    "stats": "node tests/coverage.cjs",
+    "start": "python3 -m http.server 8000",
+    "serve": "python3 -m http.server 8000"
   },
   "keywords": [
     "game",

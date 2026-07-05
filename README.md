@@ -2,7 +2,7 @@
 
 > **v1.0.0 正式发布** · 一个完整的高质量竖版射击游戏，纯 HTML5 + JavaScript + Canvas 实现，可玩 30+ 分钟。
 
-![完成度](https://img.shields.io/badge/rounds-20%2F20-brightgreen) ![代码](https://img.shields.io/badge/lines-5926-blue) ![模块](https://img.shields.io/badge/modules-18-orange) ![测试](https://img.shields.io/badge/tests-43%2F43-brightgreen) ![依赖](https://img.shields.io/badge/dependencies-0-success) ![CI](https://img.shields.io/badge/CI-passing-brightgreen) ![License](https://img.shields.io/badge/license-MIT-blue) ![Version](https://img.shields.io/badge/version-v1.0.0-success)
+![完成度](https://img.shields.io/badge/rounds-20%2F20-brightgreen) ![代码](https://img.shields.io/badge/lines-5926-blue) ![模块](https://img.shields.io/badge/modules-18-orange) ![测试](https://img.shields.io/badge/tests-80%2F80-brightgreen) ![依赖](https://img.shields.io/badge/dependencies-0-success) ![CI](https://img.shields.io/badge/CI-passing-brightgreen) ![License](https://img.shields.io/badge/license-MIT-blue) ![Version](https://img.shields.io/badge/version-v1.0.0-success)
 
 ## 🛠️ 环境要求
 
@@ -163,7 +163,7 @@ thunder_shooter/
 │   ├── gameInput.js          # 键盘事件路由（109 行）
 │   ├── gameLogic.js          # update 游戏逻辑（217 行）
 │   └── game.js               # 主循环+状态机（706 行，原 937 行）
-└── tests/                 # 持久化测试套件（43/43 通过）
+└── tests/                 # 持久化测试套件（80/80 通过）
     ├── README.md              # 测试套件完整文档
     ├── runner.cjs             # 轻量测试运行器
     ├── test-config.cjs        # Config 模块
@@ -192,7 +192,7 @@ GitHub Actions 自动跑测试矩阵：
 
 ## 🧪 测试套件
 
-43 个自动化测试，**全部通过**：
+80 个自动化测试，**全部通过**：
 
 ```bash
 # 跑全部测试
@@ -314,7 +314,7 @@ menu → selectShip → levelIntro → playing → levelClear → [Shop] → lev
 | **代码量** | 5926 行（生产 4077 + 测试 1040 + 文档 809） |
 | **JS 模块** | 18 个 |
 | **测试覆盖** | 8 模块（核心 100%）|
-| **测试项** | 43/43 通过（~50ms）|
+| **测试项** | 80/80 通过（~90ms）|
 | **依赖** | 0 外部库 |
 | **首次加载** | < 200KB |
 | **存档大小** | < 5KB（localStorage）|

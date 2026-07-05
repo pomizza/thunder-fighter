@@ -143,6 +143,96 @@ const Config = {
 
   // === Shop 动画 ===
   SHOP_NOTIF_DURATION: 2.5,      // 通知显示时长
+
+  // === 敌机基础数据 (5 类) ===
+  // 每类敌机的尺寸、血量、速度、射击速率、分数、颜色、移动模式
+  ENEMY_TYPES: {
+    scout: {
+      w: 28, h: 30, hp: 2, vy: 130,
+      color: '#ff7777', fireRate: 1.6, score: 50,
+      pattern: 'down_then_sine',
+    },
+    fighter: {
+      w: 34, h: 36, hp: 5, vy: 100,
+      color: '#ffaa33', fireRate: 1.2, score: 100,
+      pattern: 'aimed_shoot', aimed: true,
+    },
+    tank: {
+      w: 44, h: 44, hp: 14, vy: 60,
+      color: '#aa66ff', fireRate: 0.8, score: 250,
+      pattern: 'tank', tankTop: 120,
+    },
+    sweeper: {
+      w: 38, h: 40, hp: 8, vy: 80,
+      color: '#66ffaa', fireRate: 1.0, score: 180,
+      pattern: 'sweep',
+    },
+    kamikaze: {
+      w: 26, h: 28, hp: 1, vy: 220,
+      color: '#ff4477', fireRate: 0, score: 70,
+      pattern: 'homing_kamikaze',
+    },
+  },
+
+  // === 敌机移动模式速度 ===
+  // 大部分敌机有 "down_then_sine" 模式，进入屏幕后正弦摆动
+  ENEMY_PATTERNS: {
+    // down_then_sine: y < 80 慢速进入，之后正弦摆动
+    // 入轨速度 (上方未到 y=80 时)
+    down_then_sine_entry_vy: 130,
+    down_then_sine_oscillation_vy: 80,  // 进入屏幕后的纵向速度
+    down_then_sine_oscillation_amp: 90,  // 横向正弦振幅
+    down_then_sine_oscillation_speed: 2,  // 正弦速度系数
+
+    // aimed_shoot: 减速后瞄准射击
+    aimed_shoot_threshold_y: 100,
+    aimed_shoot_vy: 100,
+    aimed_shoot_vy_aiming: 30,  // 瞄准时的纵向速度
+    aimed_shoot_vx_sine: 60,  // 横向正弦幅度
+    aimed_shoot_sine_speed: 1.2,
+
+    // tank: 缓慢下移，撞墙反弹
+    tank_entry_vy: 60,
+    tank_cruise_vy: 0,
+    tank_cruise_vx: 90,
+    tank_top_y: 100,
+    tank_bounce_margin: 40,  // 撞墙距离
+
+    // sweep: 直行到底后左右扫射
+    sweep_entry_vy: 100,
+    sweep_cruise_vy: 80,
+    sweep_cruise_vy_after: 0,  // 到底后停止
+    sweep_vx: 90,
+    sweep_threshold_y: 100,
+    sweep_sine_vx: 50,
+    sweep_sine_speed: 3,
+
+    // homing_kamikaze: 锁定玩家俯冲
+    kamikaze_vy_top: 90,  // y<100 时慢速
+    kamikaze_sine_amp: 50,
+    kamikaze_sine_speed: 3,
+    kamikaze_chase_vy: 90,  // 攻击时纵向速度
+    kamikaze_threshold_y: 100,
+  },
+
+  // === Boss 公式 ===
+  BOSS_BASE_HP: 200,           // 基础 HP
+  BOSS_HP_PER_LEVEL: 120,      // 每关增加 HP
+  BOSS_BASE_SCORE: 5000,
+  BOSS_SCORE_PER_LEVEL: 2000,
+
+  // === Boss 阶段切换阈值 ===
+  BOSS_PHASE_2_THRESHOLD: 0.35,  // HP < 35% 进入狂暴
+  BOSS_PHASE_1_5_THRESHOLD: 0.7, // HP < 70% 提示
+  BOSS_SHAKE_ON_PHASE2: 8,        // 阶段2 震屏幅度
+  BOSS_SHAKE_DUR_ON_PHASE2: 0.4,  // 阶段2 震屏时长
+
+  // === 敌机默认（无 type 时） ===
+  ENEMY_DEFAULT: {
+    w: 24, h: 26, hp: 1, vy: 100,
+    color: '#ffffff', fireRate: 1.0, score: 30,
+    pattern: 'straight',
+  },
 };
 // 显式挂到 window
 window.Config = Config;

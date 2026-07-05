@@ -13,35 +13,21 @@ class Enemy {
     this.entered = false;
     this.homingT = 0;
 
-    switch (type) {
-      case 'scout':
-        this.w = 28; this.h = 30; this.hp = 2; this.maxHp = 2;
-        this.vy = 130; this.color = '#ff7777';
-        this.fireRate = 1.6; this.score = 50; this.pattern = 'down_then_sine';
-        break;
-      case 'fighter':
-        this.w = 34; this.h = 36; this.hp = 5; this.maxHp = 5;
-        this.vy = 100; this.color = '#ffaa33';
-        this.fireRate = 1.2; this.score = 100; this.pattern = 'aimed_shoot';
-        this.aimed = true;
-        break;
-      case 'tank':
-        this.w = 44; this.h = 44; this.hp = 14; this.maxHp = 14;
-        this.vy = 60; this.color = '#aa66ff';
-        this.fireRate = 0.8; this.score = 250; this.pattern = 'tank';
-        this.tankDir = 1; this.tankTop = 120;
-        break;
-      case 'sweeper':
-        this.w = 38; this.h = 40; this.hp = 8; this.maxHp = 8;
-        this.vy = 80; this.color = '#66ffaa';
-        this.fireRate = 1.0; this.score = 180; this.pattern = 'sweep';
-        break;
-      case 'kamikaze':
-        this.w = 26; this.h = 28; this.hp = 1; this.maxHp = 1;
-        this.vy = 220; this.color = '#ff4477';
-        this.fireRate = 0; this.score = 70; this.pattern = 'homing_kamikaze';
-        break;
-    }
+    // 从 Config 读取敌机基础数据（5 类 + 默认）
+    const cfg = (window.Config && window.Config.ENEMY_TYPES[type]) || null;
+    const defaultCfg = (window.Config && window.Config.ENEMY_DEFAULT) || {
+      w: 24, h: 26, hp: 1, vy: 100, color: '#ffffff',
+      fireRate: 1.0, score: 30, pattern: 'straight',
+    };
+    const src = cfg || defaultCfg;
+    this.w = src.w; this.h = src.h;
+    this.hp = src.hp; this.maxHp = src.hp;
+    this.vy = src.vy; this.color = src.color;
+    this.fireRate = src.fireRate; this.score = src.score;
+    this.pattern = src.pattern;
+    // 类型特定字段
+    if (src.aimed) this.aimed = true;
+    if (src.tankTop !== undefined) { this.tankDir = 1; this.tankTop = src.tankTop; }
   }
   update(dt, game) {
     this.t += dt;
@@ -51,8 +37,15 @@ class Enemy {
     // 移动模式
     switch (this.pattern) {
       case 'down_then_sine': {
-        if (this.y < 80) { this.vy = 130; this.vx = 0; }
-        else { this.vy = 80; this.vx = Math.sin(this.t * 2) * 90; }
+        // 从 Config 读取（避免魔数）
+        const ds = (window.Config && window.Config.ENEMY_PATTERNS) || {};
+        const entryY = ds.down_then_sine_threshold_y || 80;
+        const entryVy = ds.down_then_sine_entry_vy || 130;
+        const oscillVy = ds.down_then_sine_oscillation_vy || 80;
+        const oscillAmp = ds.down_then_sine_oscillation_amp || 90;
+        const oscillSpd = ds.down_then_sine_oscillation_speed || 2;
+        if (this.y < entryY) { this.vy = entryVy; this.vx = 0; }
+        else { this.vy = oscillVy; this.vx = Math.sin(this.t * oscillSpd) * oscillAmp; }
         break;
       }
       case 'aimed_shoot': {
@@ -214,7 +207,10 @@ class Boss {
     this.x = x; this.y = y; this.w = 130; this.h = 100;
     // 应用难度缩放
     const diff = (window.Difficulty ? window.Difficulty.get() : null) || { bossHpMul: 1, scoreMul: 1 };
-    this.hp = Math.floor((200 + level * 120) * diff.bossHpMul);
+    // Boss HP 公式: (BASE + level * PER_LEVEL) * 难度缩放
+    const bossBase = (window.Config && window.Config.BOSS_BASE_HP) || 200;
+    const bossPerLvl = (window.Config && window.Config.BOSS_HP_PER_LEVEL) || 120;
+    this.hp = Math.floor((bossBase + level * bossPerLvl) * diff.bossHpMul);
     this.maxHp = this.hp;
     this.alive = true; this.t = 0; this.flashT = 0;
     this.vx = 80; this.vy = 0;
@@ -334,7 +330,14 @@ class Boss {
     }
 
     // 阶段切换
-    if (this.hp < this.maxHp * 0.35 && this.phase < 2) { this.phase = 2; Audio.bossWarn(); Effects.shake(8, 0.4); }
+    // 阶段切换阈值（从 Config 读取）
+    const phase2Threshold = (window.Config && window.Config.BOSS_PHASE_2_THRESHOLD) || 0.35;
+    const phase15Threshold = (window.Config && window.Config.BOSS_PHASE_1_5_THRESHOLD) || 0.7;
+    const phase2Shake = (window.Config && window.Config.BOSS_SHAKE_ON_PHASE2) || 8;
+    const phase2ShakeDur = (window.Config && window.Config.BOSS_SHAKE_DUR_ON_PHASE2) || 0.4;
+    if (this.hp < this.maxHp * phase2Threshold && this.phase < 2) {
+      this.phase = 2; Audio.bossWarn(); Effects.shake(phase2Shake, phase2ShakeDur);
+    }
     else if (this.hp < this.maxHp * 0.7 && this.phase < 1.5) this.phase = 1.5;
 
     // 射击

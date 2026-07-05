@@ -25,9 +25,10 @@
    - 填写漏洞详情
    - 我们会收到通知并私下处理
 
-2. **邮件**（备用）：
-   - 发送至 `security@thunder-fighter.local`（占位邮箱）
-   - 主题标注 `[SECURITY]` 前缀
+2. **邮件**（备用，目前未配置）：
+   - 本项目**目前未配置公开邮箱**（避免使用占位/虚假地址）
+   - 推荐使用 GitHub Security Advisories
+   - 未来会配置真实邮箱并更新本文档
 
 ### 报告内容
 
@@ -98,7 +99,7 @@ _暂无已修复漏洞_
 
 ## 📞 联系方式
 
-- **私密漏洞报告**：GitHub Security Advisories（推荐）或 `security@thunder-fighter.local`
+- **私密漏洞报告**：**GitHub Security Advisories**（推荐，目前唯一渠道）
 - **一般安全问题**：[GitHub Discussions](../../discussions) 或 [Issues](../../issues)
 - **紧急联系**：仅用于极端情况，请先尝试常规渠道
 

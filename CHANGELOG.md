@@ -131,6 +131,52 @@
 
 ---
 
+## [v1.0.0] - 2026-07-05 · 首个正式发布
+
+> 首个完整开源版本。所有核心功能就绪，开源配置齐全。
+
+### 🆕 Added (新功能)
+- 5 大关卡 (绿洲空域 → 终极决战)
+- 3 难度 (EASY/NORMAL/HARD) 参数化
+- 3 战机 (蓝隼/赤焰/金星) 差异化
+- 4 道具 + 4 级武器升级
+- 关卡间商店 (4 商品)
+- 10 成就系统 (持久化 + 通知)
+- 完整 Replay 系统 (含暂停/进度)
+- 触屏支持 (虚拟摇杆 + 按钮)
+- 性能监控 (F3 切换)
+- 动态背景 (5 关主题星云 + 流星)
+
+### 🏗️ Architecture (架构)
+- 方案 B 模块拆分 (不污染生产代码)
+- game.js 937 → 706 行 (-24%)
+- 17 个 JS 模块 6 层结构
+- 测试基础设施 (vm sandbox + (0, eval) hack)
+
+### 🐛 Fixed (Bug 修复)
+- 20 轮迭代中修复 12+ 个 bug
+- 状态机竞态完全闭环
+- 神风机入轨 AI 改进
+
+### 📚 Documentation (文档)
+- 3 个核心 MD 文档 (README/CHANGELOG/PROJECT_LOG)
+- index.html 完整加载注释
+- tests/README.md 完整测试文档
+
+### 📜 License (许可)
+- MIT License
+- 完整开源项目配置 (LICENSE/package.json/favicon.svg)
+
+### 🔒 Version Control (版本控制)
+- 4 个 commit (root + 性能 + 文档 + lockfile)
+- .gitignore (85 行, lockfile 三重防护)
+- Git tag: v1.0.0
+
+[Unreleased]: ./CHANGELOG.md#unreleased
+[v1.0.0]: ./CHANGELOG.md#v100---2026-07-05
+
+---
+
 
 ## 概览
 

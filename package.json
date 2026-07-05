@@ -31,7 +31,8 @@
   "author": "Thunder Fighter Contributors",
   "license": "MIT",
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=14.0.0",
+    "npm": ">=9.0.0"
   },
   "files": [
     "index.html",

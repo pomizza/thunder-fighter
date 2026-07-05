@@ -1,8 +1,19 @@
 # 雷霆战机 · Thunder Fighter
 
-> 一个完整的高质量竖版射击游戏，纯 HTML5 + JavaScript + Canvas 实现，可玩 30+ 分钟。
+> **v1.0.0 正式发布** · 一个完整的高质量竖版射击游戏，纯 HTML5 + JavaScript + Canvas 实现，可玩 30+ 分钟。
 
-![完成度](https://img.shields.io/badge/rounds-20%2F20-brightgreen) ![代码](https://img.shields.io/badge/lines-5926-blue) ![模块](https://img.shields.io/badge/modules-18-orange) ![测试](https://img.shields.io/badge/tests-43%2F43-brightgreen) ![依赖](https://img.shields.io/badge/dependencies-0-success) ![CI](https://img.shields.io/badge/CI-passing-brightgreen) ![License](https://img.shields.io/badge/license-MIT-blue)
+![完成度](https://img.shields.io/badge/rounds-20%2F20-brightgreen) ![代码](https://img.shields.io/badge/lines-5926-blue) ![模块](https://img.shields.io/badge/modules-18-orange) ![测试](https://img.shields.io/badge/tests-43%2F43-brightgreen) ![依赖](https://img.shields.io/badge/dependencies-0-success) ![CI](https://img.shields.io/badge/CI-passing-brightgreen) ![License](https://img.shields.io/badge/license-MIT-blue) ![Version](https://img.shields.io/badge/version-v1.0.0-success)
+
+## 🛠️ 环境要求
+
+| 工具 | 最低版本 | 推荐版本 | 用途 |
+|------|----------|----------|------|
+| **浏览器** | Chrome 90+ / Firefox 88+ / Safari 14+ / Edge 90+ | 最新版 | 运行游戏 |
+| **Node.js** | 14.0.0+ | 18.x 或 20.x | 运行测试（可选）|
+| **npm** | 9.0.0+ | 10.x | 安装依赖（可选）|
+| **Python** | 3.x | 3.8+ | 可选：启动 HTTP 服务器（`python3 -m http.server`）|
+
+> 本项目是**纯静态文件**，**不需要任何构建**。Node/Python 仅用于**开发工具**（跑测试 / 启动服务器）。
 
 ## 🎮 立即试玩
 
@@ -129,8 +140,10 @@ VICTORY!
 ```
 thunder_shooter/
 ├── index.html             # 入口（34 行）
+│   └── 当前版本: v1.0.0 (2026-07-05)
 ├── README.md              # 本文档
 ├── CHANGELOG.md           # 20 轮变更日志
+├── CODE_OF_CONDUCT.md     # 社区行为准则 (Contributor Covenant v2.1)
 ├── .gitignore             # 噪音文件保护
 ├── js/                    # 18 个模块（4077 行）
 │   ├── audio.js              # WebAudio 程序化音效
@@ -339,3 +352,26 @@ menu → selectShip → levelIntro → playing → levelClear → [Shop] → lev
 唯一要求：保留版权声明。
 
 项目所有代码均为原创实现。
+
+## 🏷️ 版本
+
+**当前版本：[v1.0.0](CHANGELOG.md)** （2026-07-05 发布）
+
+- **状态**：✅ 稳定版（Stable）
+- **API 兼容**：✅ 向下兼容
+- **Git tag**：`v1.0.0`（commit `178125b`）
+- **下次发布**：根据 [CHANGELOG Unreleased](CHANGELOG.md) 章节
+
+### 版本策略
+
+- 主版本（v1 → v2）：破坏性变更（API 大改）
+- 次版本（v1.0 → v1.1）：新增功能（向下兼容）
+- 修订版（v1.0.0 → v1.0.1）：Bug 修复（向下兼容）
+
+详见 [CHANGELOG.md](CHANGELOG.md) 的版本历史。
+
+## 🤝 社区
+
+- **[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)** - 行为准则（Contributor Covenant v2.1）
+- **[CONTRIBUTING.md](.github/CONTRIBUTING.md)** - 贡献指南
+- **[SECURITY.md](.github/SECURITY.md)** - 安全政策（漏洞报告）

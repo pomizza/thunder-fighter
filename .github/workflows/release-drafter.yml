@@ -1,0 +1,25 @@
+name: Release Drafter
+
+# 当 push 到 main 时自动更新 draft release
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+# 权限：让 action 能写 release
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  update_release_draft:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update release draft
+        uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # release.yml 会自动读取
+        # 文档: https://github.com/release-drafter/release-drafter

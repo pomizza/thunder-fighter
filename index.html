@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>雷霆战机 · Thunder Fighter</title>
+<style>
+  html,body{margin:0;padding:0;height:100%;background:#02020a;display:flex;align-items:center;justify-content:center;font-family:'Segoe UI',sans-serif;color:#eaeaff;overflow:hidden;user-select:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:none}
+  #wrap{position:relative}
+  canvas{background:#000;display:block;box-shadow:0 0 40px rgba(80,140,255,.45),0 0 80px rgba(120,80,255,.2);border:1px solid #223;border-radius:6px;touch-action:none}
+  .hint{position:fixed;top:10px;left:50%;transform:translateX(-50%);font-size:13px;opacity:.7;text-align:center;letter-spacing:1px}
+  .keys{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);font-size:12px;opacity:.55}
+</style>
+</head>
+<body>
+<div class="hint">雷霆战机 · THUNDER FIGHTER</div>
+<div class="keys" id="hintKeys">方向键/WASD 移动 · Z 射击 · X 炸弹 · P 暂停 · 移动端使用屏幕虚拟摇杆</div>
+<div id="wrap"><canvas id="game" width="540" height="780"></canvas></div>
+
+<script src="js/audio.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/config.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/bullets.js"></script>
+<script src="js/enemies.js"></script>
+<script src="js/player.js"></script>
+<script src="js/levels.js"></script>
+<script src="js/difficulty.js"></script>
+<script src="js/touch.js"></script>
+<script src="js/shop.js"></script>
+<script src="js/shipSelect.js"></script>
+<script src="js/achievements.js"></script>
+<script src="js/replay.js"></script>
+<script src="js/gameInput.js"></script>
+<script src="js/gameLogic.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>

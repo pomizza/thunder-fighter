@@ -1,0 +1,83 @@
+# ============================================
+# Thunder Fighter .gitignore
+# 防止常见噪音文件污染仓库
+# ============================================
+
+# macOS 系统文件
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows 系统文件
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux 系统文件
+*~
+.fuse_hidden*
+.Trash-*
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# Node.js（防止未来添加）
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# 临时文件
+*.tmp
+*.bak
+*.backup
+*.old
+*.log
+.cache/
+.tmp/
+.temp/
+
+# 测试/调试残留（防止再出现）
+_test_dtest/
+smoke_game/
+hello.txt
+
+# 操作系统
+.directory
+
+# 项目特定
+# Replay 数据（保存在 game.lastReplayData，不持久化到文件，无需排除）
+# 测试输出
+test-output/
+coverage/
+.nyc_output/
+
+# 构建产物
+dist/
+build/
+*.min.js
+*.min.css
+
+# 环境配置
+.env
+.env.local
+.env.*.local

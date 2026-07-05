@@ -1,0 +1,43 @@
+# GitHub Labels 配置
+# 这些 label 由 GitHub Actions 创建（如果不存在）
+# 用法：每个 label 都有 name/color/description
+
+- name: bug
+  color: d73a4a
+  description: 标记为 bug 的问题
+- name: regression
+  color: c5def5
+  description: 之前能用的功能现在坏了
+- name: enhancement
+  color: a2eeef
+  description: 新功能或改进建议
+- name: documentation
+  color: 0075ca
+  description: 仅文档改进
+- name: question
+  color: d876e3
+  description: 一般性问题或讨论
+- name: performance
+  color: fbca04
+  description: 性能问题（卡顿、内存泄漏、帧率低）
+- name: wontfix
+  color: ffffff
+  description: 不会处理（关闭时使用）
+- name: duplicate
+  color: cfd3d7
+  description: 重复的 issue
+- name: invalid
+  color: cfd3d7
+  description: 无效的 issue
+- name: ignore-for-release
+  color: cfd3d7
+  description: 不计入 release notes
+- name: dependencies
+  color: 0366d6
+  description: Dependabot 升级
+- name: github-actions
+  color: 000000
+  description: GitHub Actions 相关
+- name: automated
+  color: 0e8a16
+  description: 自动生成的 PR/issue

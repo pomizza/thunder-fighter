@@ -2,7 +2,7 @@
 
 > **v1.0.0 正式发布** · 一个完整的高质量竖版射击游戏，纯 HTML5 + JavaScript + Canvas 实现，可玩 30+ 分钟。
 
-![完成度](https://img.shields.io/badge/rounds-20%2F20-brightgreen) ![代码](https://img.shields.io/badge/lines-5926-blue) ![模块](https://img.shields.io/badge/modules-18-orange) ![测试](https://img.shields.io/badge/tests-80%2F80-brightgreen) ![依赖](https://img.shields.io/badge/dependencies-0-success) ![CI](https://img.shields.io/badge/CI-passing-brightgreen) ![License](https://img.shields.io/badge/license-MIT-blue) ![Version](https://img.shields.io/badge/version-v1.0.0-success)
+![完成度](https://img.shields.io/badge/rounds-20%2F20-brightgreen) ![代码](https://img.shields.io/badge/lines-5926-blue) ![模块](https://img.shields.io/badge/modules-18-orange) ![测试](https://img.shields.io/badge/tests-80%2F80-brightgreen) ![依赖](https://img.shields.io/badge/dependencies-0-success) ![CI](https://github.com/pomizza/thunder-fighter/actions/workflows/test.yml/badge.svg) ![License](https://img.shields.io/badge/license-MIT-blue) ![Version](https://img.shields.io/badge/version-v1.0.0-success) ![Pages](https://img.shields.io/badge/GitHub%20Pages-deployed-success)
 
 ## 🛠️ 环境要求
 
@@ -19,8 +19,12 @@
 
 由于使用了 ES6 class 和模块化，必须通过 HTTP 服务器访问（不能直接 `file://` 打开）。
 
+**🎮 在线演示**：[https://pomizza.github.io/thunder-fighter/](https://pomizza.github.io/thunder-fighter/)（GitHub Pages 自动部署）
+
+**本地运行**：
+
 ```bash
-cd thunder_shooter
+cd thunder-shooter
 python3 -m http.server 8000
 # 浏览器打开 http://localhost:8000/
 ```

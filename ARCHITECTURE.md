@@ -675,3 +675,111 @@ draw(ctx):
 
 **最后更新**：2026-07-05
 **对应版本**：v1.0.0 (commit 1ebca6b)
+
+---
+
+## 📝 Commit Message 策略
+
+**采用**：**Conventional Commits 标题 + 中文正文**
+
+### 标题（英文前缀）
+
+```
+<type>(<scope>): <description>
+
+类型:
+  feat     - 新功能
+  fix      - Bug 修复
+  docs     - 仅文档
+  refactor - 重构
+  perf     - 性能
+  test     - 测试
+  chore    - 杂项（CI/构建等）
+```
+
+**示例**：
+- `feat: 玩家道具系统`
+- `fix: 神风机飞出屏外`
+- `docs: README 操作说明`
+- `chore: 升级 actions/checkout`
+
+### 正文（全中文 + emoji 分类）
+
+```
+【核心功能】
+- 详细改动 1
+- 详细改动 2
+
+【统计】
+- 5 文件
+- 测试: 80/80 → 88/88 (+8 项)
+- 0 破坏性变更
+```
+
+### 为什么这样设计
+
+| 维度 | 选择 | 理由 |
+|------|------|------|
+| **标题** | 英文（Conventional Commits）| ✅ 行业标准 · ✅ 工具集成 · ✅ 国际化 |
+| **正文** | 全中文 | ✅ 项目是中文面向 · ✅ 详细改动更清晰 |
+| **emoji** | 用作分类符 | ✅ 视觉分层 · ✅ 不影响 git log |
+
+**完整示例**：见 git log 现有 10 个 commits（每个都遵循此格式）
+
+### 对比方案
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| **全英文** | 国际化 | ❌ 项目是中文用户面向 |
+| **全中文** | 本地化 | ❌ 失去 Conventional Commits 标准 |
+| **混合（当前）** | 兼顾 | 轻微不一致（但能接受） |
+
+### 修改历史规则
+
+**不允许修改已发布 commit message**（除非有严重错误）：
+- ❌ git rebase -i 修改历史
+- ❌ git push --force 改写远程
+- ✅ git commit --amend 仅用于**最新一个**未推送 commit
+
+---
+
+## 🔄 CI 升级计划（v1.1.0）
+
+**当前状态**（v1.0.0）：
+- `actions/checkout@v4` (2023 发布)
+- `actions/setup-node@v4` (2023 发布)
+- `release-drafter/release-drafter@v5` (2023 发布)
+
+**待升级**（v1.1.0）：
+- `actions/checkout@v4` → `v7` （关闭 3 个 dependabot PR）
+- `actions/setup-node@v4` → `v6`
+- `release-drafter/release-drafter@v5` → `v7`
+
+**为什么暂不升级**：
+- ✅ v1.0.0 已发布且 CI 测试通过（v4 跑通）
+- ✅ dependabot 3 个 PR 已关闭（已决策暂不升级）
+- ⚠️ 升级到 v6/v7 风险高（3 个大版本跳跃）
+- ⚠️ 本环境无 `act` 工具本地测试 actions
+- ⚠️ Node v6 setup-node 默认 Node 20（vs v4 默认 Node 16）
+
+**未来升级流程**（v1.1.0）：
+1. 升级 `actions/checkout@v4` → `v7`
+2. 升级 `setup-node@v4` → `v6`
+3. 升级 `release-drafter@v5` → `v7`
+4. 测试 80/80 测试通过
+5. 让 dependabot 重新开 PR
+
+**当前 `.github/dependabot.yml` 设置**：
+```yaml
+open-pull-requests-limit: 0  # 禁用自动 PR
+```
+
+**恢复自动 PR**（v1.1.0 时）：
+```yaml
+open-pull-requests-limit: 3  # 重新启用
+```
+
+---
+
+**最后更新**：2026-07-05
+**对应版本**：v1.0.0 (commit 1ebca6b)

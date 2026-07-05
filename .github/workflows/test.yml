@@ -31,7 +31,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          # 0 依赖项目无需 cache
 
       # 3. 验证项目结构
       - name: 验证项目结构

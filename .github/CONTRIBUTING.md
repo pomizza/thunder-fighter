@@ -46,7 +46,80 @@ git add .
 git commit -m "feat: 你的功能描述"
 
 # 7. Push 到 fork
-git push origin feat/your-feature
+git push origin feat/your-feature```
+
+### 📝 Commit Message 格式（必读）
+
+本项目 commit message 格式：**Conventional Commits + 中文正文**
+
+**标题格式**（**英文**前缀）：
+```
+<type>(<scope>): <description>
+
+类型 (type):
+  feat     - 新功能
+  fix      - Bug 修复
+  docs     - 仅文档变更
+  style    - 代码格式（不影响功能）
+  refactor - 重构
+  perf     - 性能优化
+  test     - 测试相关
+  chore    - 杂项（构建/CI/依赖等）
+
+示例:
+  feat: 添加玩家道具系统
+  fix: 修复神风机飞出屏外
+  docs: 更新 README 操作说明
+  chore: 升级 actions/checkout 到 v7
+```
+
+**正文格式**（**全中文**，建议用 emoji 分类）：
+
+```
+【分类1】
+- 详细改动 1
+- 详细改动 2
+
+【分类2】
+- 详细改动 1
+
+【统计】
+- 测试: 80/80 → 118/118 (+38 项)
+- 文件: 5
+- 0 破坏性变更
+```
+
+**完整示例**：
+```
+feat: 添加玩家道具系统
+
+【核心功能】
+- PowerUp 类：heal/weapon/bomb/shield 4 种
+- 拾取检测 + applyPowerUp() 统一接口
+- 道具自动下落 + 玩家碰撞响应
+
+【新文件】
+- js/player.js - 加 PowerUp 拾取逻辑
+- tests/test-powerup.cjs - 5 项单元测试
+
+【统计】
+- 5 文件
+- 测试: 80/80 → 88/88 (+8 项)
+- 0 破坏性变更
+```
+
+**为什么标题用英文**：
+- ✅ Conventional Commits 标准（行业最佳实践）
+- ✅ 工具集成：自动 changelog、semver 推断
+- ✅ 国际开发者能读
+- ✅ git log --oneline 简洁清晰
+
+**为什么正文用中文**：
+- ✅ 项目是中文面向用户
+- ✅ 详细改动中文描述更清晰
+- ✅ 未来维护者能直接读
+
+**完整示例见**：git log --format=%B HEAD~5..HEAD~4
 
 # 8. 创建 Pull Request
 ```

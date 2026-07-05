@@ -1,0 +1,47 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/pomizza/thunder-fighter/discussions
+    about: 一般问题/讨论（不需要 issue）
+  - name: 行为准则投诉
+    url: mailto:security@thunder-fighter.local
+    about: 违反 [CODE_OF_CONDUCT.md](../../CODE_OF_CONDUCT.md) 的行为
+  - name: 安全漏洞报告
+    url: .github/SECURITY.md
+    about: 私有的安全漏洞报告（参见 SECURITY.md）
+issue_template:
+  - name: 🐛 Bug 报告
+    description: 创建 bug 报告帮助我们改进
+    title: "[BUG] "
+    labels: ["bug"]
+    assignees: []
+  - name: 🔄 回归 Bug
+    description: 之前能用的功能现在坏了
+    title: "[REGRESSION] "
+    labels: ["bug", "regression"]
+    assignees: []
+  - name: 🚀 功能建议
+    description: 为这个项目提出新功能建议
+    title: "[FEATURE] "
+    labels: ["enhancement"]
+    assignees: []
+  - name: 📚 文档改进
+    description: 改进 README、CHANGELOG、ARCHITECTURE 等文档
+    title: "[DOCS] "
+    labels: ["documentation"]
+    assignees: []
+  - name: ❓ 问题/讨论
+    description: 一般性问题或讨论
+    title: "[QUESTION] "
+    labels: ["question"]
+    assignees: []
+  - name: ⚡ 性能问题
+    description: 报告性能问题（卡顿、内存泄漏、帧率低等）
+    title: "[PERFORMANCE] "
+    labels: ["performance", "bug"]
+    assignees: []
+  - name: 📝 其他
+    description: 不属于上述任何类别的 issue
+    title: ""
+    labels: []
+    assignees: []

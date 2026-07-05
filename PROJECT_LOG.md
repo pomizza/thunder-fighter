@@ -358,7 +358,19 @@ if (this.state === 'levelClear' && this.player && this.player.alive
   ↓
 🏷️ v1.0.0 正式发布 (commit 178125b, tag v1.0.0)
   ↓
-当前：完整开源项目 + 80/80 测试通过
+v1.0.0 完善阶段
+  ├── 测试 43 → 80 项 (test-enemies + test-player)
+  ├── README 测试数同步 (43→80)
+  ├── PROJECT_LOG 年份修正 (2024→2026)
+  ├── 魔数迁移 (enemies.js → Config.js)
+  ├── index.html 运行环境说明 + 浏览器检测
+  ├── browserslist 扩展 (桌面 4 项 → 桌面+移动 7 项)
+  ├── iOS Safari 智能检测
+  └── v1.0.0 tag 移到完整状态 (commit 1ebca6b → 1ebca6b)
+  ↓
+8 commits / 51 文件 / 80/80 测试 / 0 依赖
+  ↓
+当前：完整 v1.0.0 开源项目，可推送远程仓库发布
 ```
 
 ---

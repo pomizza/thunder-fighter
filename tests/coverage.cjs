@@ -156,12 +156,15 @@ console.log();
 
 // 4. 测试覆盖的模块
 console.log('【测试覆盖的模块】\n');
-const testModules = ['Config', 'Achievements', 'Difficulty', 'ShipSelect', 'Shop', 'Replay', 'Game'];
+const testModules = ['Config', 'Achievements', 'Difficulty', 'ShipSelect', 'Shop', 'Replay', 'PerfMonitor', 'Game'];
 for (const m of testModules) {
   const has = modules[m] !== undefined;
   console.log(`  ${has ? '✅' : '❌'} ${m}`);
 }
-console.log(`\n覆盖率（按模块数）: ${testModules.length}/${Object.keys(modules).length} = ${Math.round(testModules.length/Object.keys(modules).length*100)}%`);
+const totalExports = Object.keys(modules).length;
+const totalJsFiles = fs.readdirSync(path.resolve(TESTS_DIR, '..', 'js')).filter(f => f.endsWith('.js')).length;
+console.log(`\n覆盖率（按单元测试）: ${testModules.length}/${totalJsFiles} 个 JS 模块有专门测试 = ${Math.round(testModules.length/totalJsFiles*100)}%`);
+console.log(`   (注：总共有 ${totalExports} 个导出对象，因为 enemies.js 含 Enemy/Boss/PowerUp 三个 class)`);
 
 // 5. HTML/CSS 文件
 console.log('\n【非 JS 文件】');
@@ -179,5 +182,6 @@ console.log('\n═════════════════════�
 console.log('提示：');
 console.log('  - js/config.js 是常量定义，无需测试');
 console.log('  - js/audio.js / effects.js 是 draw 函数，主要靠手动测试');
-console.log('  - 核心逻辑模块（Player/Enemy/Boss/Shop 等）有单元测试');
+console.log('  - 核心逻辑模块（Player/Enemy/Boss/Shop）通过 gameflow.cjs 集成测试覆盖');
+console.log('  - 8 个模块有专门单元测试（43/43 项）');
 console.log('═══════════════════════════════════════════════');

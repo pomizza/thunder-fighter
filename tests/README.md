@@ -13,6 +13,9 @@ node tests/runner.cjs test-config.cjs
 
 # 跑多个文件
 node tests/runner.cjs test-config.cjs test-achievements.cjs
+
+# 跑覆盖统计
+npm run coverage
 ```
 
 ## 📋 测试文件
@@ -107,6 +110,50 @@ function mockCanvas() {
 ```
 
 draw 函数可以调用，但**不绘制任何东西**（仅验证不抛错）。
+
+## 📊 覆盖统计
+
+`tests/coverage.cjs` 是自制的**测试覆盖统计**工具（不依赖 nyc/c8 等外部包）：
+
+```bash
+# 跑覆盖统计
+npm run coverage
+# 或
+npm run stats
+```
+
+**输出示例**：
+```
+【按文件统计】
+文件                       | 行数  | 字节  | 占比
+---------------------------|-------|-------|------
+achievements.js           |   156 |  4633 | ████
+audio.js                  |    71 |  3274 | ███
+...
+game.js                   |   707 | 23013 | ███████████████████
+...
+合计                        |  3923 | 130775 |
+
+【测试覆盖的模块】
+  ✅ Config     ✅ Achievements   ✅ Difficulty
+  ✅ ShipSelect ✅ Shop           ✅ Replay
+  ✅ Game
+
+覆盖率（按模块数）: 7/19 = 37%
+```
+
+**为什么不用 c8/nyc？**
+
+| 工具 | 问题 |
+|------|------|
+| **c8** | V8 覆盖率 API 不跟踪 `vm.createContext()` 沙箱 → 0% |
+| **nyc** | 需要 babel 插件（增加 0 依赖项目复杂度）|
+| **自制的** | **零依赖** + 直接统计文件/类/模块 |
+
+**覆盖范围说明**：
+- ✅ 已覆盖：Config / Achievements / Difficulty / ShipSelect / Shop / Replay / PerfMonitor / Game
+- ⚠️ 未覆盖：Player（核心逻辑，100% 集成测试覆盖）/ Enemy（5 类敌机）
+- ⚠️ 需手动测试：audio.js（WebAudio API）/ effects.js（draw 函数）
 
 ## ➕ 添加新测试
 

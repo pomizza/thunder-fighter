@@ -11,14 +11,25 @@
 
 ## 🚧 Unreleased
 
-> 当前在 master 分支上**未发布**的改动。最近一次 commit：`64a79b2`
+> 当前在 master 分支上**未发布**的改动。最近一次 commit：`c451194`
 
 ### 🆕 新增功能 / 系统
 
-- 持久化测试套件 (`tests/`)：34 项测试覆盖 7 个核心模块
-  - `runner.cjs`：轻量测试运行器，~180 行
-  - `tests/README.md`：完整测试文档（API、hack 解释、添加新测试指南）
-  - 7 个 `test-*.cjs` 文件
+- **性能监控** (`js/performance.js` 161 行)：
+  - `PerfMonitor` class：FPS 计数器 / 帧时间统计
+  - API：`tick(dt)` / `draw(ctx, x, y)` / `getFps()` / `getFrameStats()`
+  - `toggle()` 切换 FPS 显示
+  - `PerfMonitor.benchmark(fn, n)` 静态基准测试
+  - 集成到 `game.js` loop（自动 tick + 角落小字绘制）
+  - F3 切换显示
+- **测试覆盖统计** (`tests/coverage.cjs` 183 行)：
+  - 按文件统计（行数 / 字节 / 占比柱状图）
+  - 按模块统计（class 数量 / 方法数）
+  - 测试覆盖矩阵
+  - `npm run coverage` / `npm run stats` 命令
+- **测试套件扩展**（34 → 43 项）：
+  - 新增 `tests/test-performance.cjs`：9 个 PerfMonitor 单元测试
+  - 新增 `tests/coverage.cjs`：覆盖统计工具
 
 ### 🏗️ 架构改进
 
@@ -27,63 +38,94 @@
   - 新增 `config.js`（149 行）：时序/玩家/触屏常量集中
   - 新增 `gameInput.js`（109 行）：键盘事件路由
   - 新增 `gameLogic.js`（217 行）：update 游戏逻辑
-- **测试基础设施**：
+  - 新增 `js/performance.js`（161 行）：性能监控
+- **测试基础设施增强**：
   - `vm.createContext()` 沙箱加载所有 JS 模块
   - `(0, eval)("X")` 间接 eval hack 提取 ES6 class
   - 单文件多 class 导出（`enemies.js` 含 Enemy/Boss/PowerUp）
   - `moduleMap` 数组化配置
+  - **`globalThis` 模拟**（vm 沙箱不自动创建）
+  - **真实 `perf_hooks.performance`** 替代 mock（让 benchmark 能测时间）
+- **CI / GitHub 集成**：
+  - `.github/workflows/test.yml`：Node 16/18/20 矩阵测试
+  - `.github/ISSUE_TEMPLATE/`：bug + feature 模板
+  - `.github/CONTRIBUTING.md`：贡献指南
+  - `.github/pull_request_template.md`：PR 模板
 
 ### 🐛 Bug 修复
 
 - 修复第 3 关敌机消失：`kamikaze` 波次缺 `enemyType` 字段，7 处全部修复
+- 修复 `PerfMonitor.benchmark` `this` 绑定问题（改用 `globalThis`）
+- 修复 `process.hrtime` 在 vm 沙箱中不可用（改用 `performance.now`）
 
 ### 📚 文档更新
 
-- 顶层 README.md（230 → 317 行）：
+- 顶层 `README.md`（230 → 327 行）：
   - 新增 `tests/` 章节（运行测试指南 + 输出示例）
+  - 新增 `持续集成` 章节（CI 工作流说明）
   - 新增 `模块拆分（方案 B）` 章节
   - 新增 `测试基础设施` 章节
-  - 徽章更新：5239 行 / 17 模块 / 34 测试
+  - 7 个徽章（rounds/lines/modules/tests/dependencies/CI/license）
+  - 修正数据：18 模块 / 43 测试 / 5926 行
   - 修正 game.js 行数（937 → 706）
-- 顶层 README + 项目结构（包含 4 个新文件）
-- tests/README.md（47 → 213 行）：
+  - 完整许可说明（MIT）
+- `tests/README.md`（47 → 213 行）：
   - 完整测试 API 文档
   - `(0, eval)` hack 原理
   - 5 种"添加新测试"示例
   - 已知 API 误用陷阱表
   - 常见错误解决
+- `index.html`（37 → 122 行）：
+  - 17 模块加载顺序注释（6 大分类）
+  - 添加新模块指南（3 条规则）
+  - 27 个 meta 标签（SEO/移动端/PWA 友好）
+  - 4 个 link 标签（favicon/苹果图标/mask）
 
 ### 🧹 清理
 
 - 删除根目录 17 个噪音文件（`hello.txt` / `smoke_game/` / `_test_dtest/` / `.DS_Store`）
-- 创建 `.gitignore`（83 行）：
+- 创建 `.gitignore`（83 → 85 行）：
   - 防止 macOS/Windows/Linux 系统文件污染
   - 防止 `_test_dtest/` / `smoke_game/` / `hello.txt` 重现
-  - 防止 `node_modules/` / 编辑器临时文件
+  - 防止 `node_modules/` / `package-lock.json` / `coverage/` 
+- 删除 `tests/coverage/` tmp 目录泄漏
+- 删除 `package.json` 3 个 `yourusername` 占位符字段
 
 ### 📜 开源许可
 
 - 添加 `LICENSE` 文件（MIT License，21 行）
 - README 许可章节更新（从"仅供学习"改为 MIT）
+- `package.json` 添加 `license: "MIT"` + 完整 `author`
+
+### 🖼 视觉资产
+
+- 添加 `favicon.svg`（矢量战机图标，24 行）：
+  - 蓝隼战机造型
+  - 项目主色（蓝紫渐变 + 蓝战机 + 橙红尾焰）
+  - 适配 iOS Safari / Android Chrome / Safari mask-icon
 
 ### 🔒 版本控制
 
-- **Git 初始化**：1 个 root commit（`64a79b2`）
-- 30 个文件，5239 行 insertions
-- 包含完整 commit message（产品特性 + 代码统计 + 架构改进 + 保护机制）
+- **Git 初始化**：2 个 commits
+  - `64a79b2` 20 轮迭代完成 + 持久化测试套件（30 文件，5239 行）
+  - `c451194` 性能监控 + 测试套件扩展 + 完整开源项目配置（17 文件，+1163/-39 行）
+- 41 个文件在 Git 中
+- `.git` 大小 364 KB
 
 ### 📊 当前真实数据
 
 | 指标 | 数值 |
 |------|------|
-| **JS 模块** | 17 |
-| **JS 代码行** | 3906 |
-| **HTML/MD 行** | 829 |
-| **测试代码行** | 504 |
-| **总行数** | 5239 |
-| **测试项** | 34/34 通过（~40ms）|
+| **JS 模块** | 18 |
+| **JS 代码行** | 4077 |
+| **HTML/MD 行** | 809 |
+| **测试代码行** | 1040 |
+| **总行数** | 5926 |
+| **测试项** | 43/43 通过（~50ms）|
 | **外部依赖** | 0 |
-| **Git 提交** | 1 个 root commit |
+| **Git 提交** | 2 |
+| **npm scripts** | 12 |
+| **仓库大小** | 364 KB |
 
 ---
 

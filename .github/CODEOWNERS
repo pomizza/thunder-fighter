@@ -1,0 +1,66 @@
+# CODEOWNERS
+# 任何文件被修改，PR 会自动请求指定的 reviewer
+# 格式：pattern  @username
+# 详细文档：https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# 默认为 Thunder Fighter Contributors（单作者占位）
+# 当有多个维护者时，取消注释并填入用户名：
+# @username1 @username2
+
+# === 全局默认（最后兜底）===
+# 注意：CODEOWNERS 规则按"从上到下匹配"，**最后一个匹配生效**
+# 所以全局默认放最后
+
+# === 核心游戏代码（高风险）===
+# 这些是游戏核心逻辑，修改需特别 review
+/js/game.js          @thunder-fighter/maintainers
+/js/gameInput.js     @thunder-fighter/maintainers
+/js/gameLogic.js     @thunder-fighter/maintainers
+/js/player.js        @thunder-fighter/maintainers
+/js/enemies.js       @thunder-fighter/maintainers
+/js/levels.js        @thunder-fighter/maintainers
+/js/bullets.js       @thunder-fighter/maintainers
+
+# === 系统模块（中等风险）===
+/js/achievements.js  @thunder-fighter/maintainers
+/js/difficulty.js    @thunder-fighter/maintainers
+/js/shop.js          @thunder-fighter/maintainers
+/js/shipSelect.js    @thunder-fighter/maintainers
+/js/replay.js        @thunder-fighter/maintainers
+/js/touch.js         @thunder-fighter/maintainers
+/js/config.js        @thunder-fighter/maintainers
+
+# === 视觉/效果（低风险）===
+/js/effects.js       @thunder-fighter/maintainers
+/js/audio.js         @thunder-fighter/maintainers
+/js/utils.js         @thunder-fighter/maintainers
+/js/performance.js   @thunder-fighter/maintainers
+
+# === 测试（任何修改需验证）===
+/tests/              @thunder-fighter/qa-team
+
+# === 配置文件 ===
+package.json        @thunder-fighter/maintainers
+package-lock.json   @thunder-fighter/maintainers
+.jsbeautifyrc       @thunder-fighter/maintainers
+.eslintrc*          @thunder-fighter/maintainers
+
+# === CI / GitHub 配置 ===
+/.github/workflows/  @thunder-fighter/devops
+/.github/CONTRIBUTING.md   @thunder-fighter/maintainers
+/.github/CODEOWNERS        @thunder-fighter/maintainers
+
+# === 文档 ===
+/*.md               @thunder-fighter/maintainers
+index.html          @thunder-fighter/maintainers
+favicon.svg         @thunder-fighter/maintainers
+
+# === 安全政策（legal 团队）===
+/.github/SECURITY.md      @thunder-fighter/legal
+
+# === 许可证（极高门槛）===
+/LICENSE             @thunder-fighter/legal
+
+# === 兜底：所有其他文件 ===
+# 注意：必须放最后（GitHub 从上到下匹配，**最后一个匹配生效**）
+*                    @thunder-fighter/maintainers

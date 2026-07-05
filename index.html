@@ -75,45 +75,99 @@
   雷霆战机 · Thunder Fighter
   ================================
   纯 HTML5 + JavaScript + Canvas 实现
-  0 外部依赖 · 17 个 JS 模块 · 3906 行代码
+  0 外部依赖 · 18 个 JS 模块 · 4077 行代码
   GitHub: https://github.com/...
 
-  模块加载顺序（按依赖关系）：
+  模块加载顺序（按依赖关系，6 层结构）：
   ─────────────────────────────────────
-  【基础层】无依赖的原子工具
+  【基础层 L0】无依赖的原子工具
     1. audio.js       - WebAudio 程序化音效
     2. utils.js       - 数学/碰撞/输入助手
     3. config.js      - 时序/玩家/触屏常量集中管理
 
-  【效果层】视觉效果与基础对象
+  【效果层 L1】视觉效果与基础对象
     4. effects.js     - 粒子/拖尾/震动/星云/流星
     5. bullets.js     - 子弹类
     6. performance.js - FPS 计数器 + 性能基准（按 F3 切换显示）
 
-  【实体层】游戏对象
+  【实体层 L2】游戏对象
     7. enemies.js     - 敌机/Boss/道具（3 个 class）
     8. player.js      - 玩家战机
 
-  【数据层】静态配置和系统
+  【数据层 L3】静态配置和系统
     9. levels.js      - 5 关脚本+波次执行
-    10. difficulty.js  - 3 难度系统
+   10. difficulty.js  - 3 难度系统
 
-  【系统层】可选/UI 系统
-    11. touch.js        - 触屏虚拟摇杆
-    12. shop.js         - 关卡间商店
-    13. shipSelect.js   - 战机选择
-    14. achievements.js - 10 成就+通知
-    15. replay.js       - 录像/回放
+  【系统层 L4】可选/UI 系统（相互独立）
+   11. touch.js       - 触屏虚拟摇杆
+   12. shop.js        - 关卡间商店
+   13. shipSelect.js  - 战机选择
+   14. achievements.js - 10 成就+通知
+   15. replay.js      - 录像/回放
 
-  【核心层】游戏主类（最后加载）
-    16. gameInput.js    - 键盘事件路由（game.js 拆分）
-    17. gameLogic.js    - update 游戏逻辑（game.js 拆分）
-    18. game.js         - 主循环+状态机
+  【核心层 L5】游戏主类（最后加载）
+   16. gameInput.js   - 键盘事件路由（game.js 拆分）
+   17. gameLogic.js   - update 游戏逻辑（game.js 拆分）
+   18. game.js        - 主循环+状态机
 
-  添加新模块：
-  - 若模块被 game.js 引用，加在 gameLogic.js 后、game.js 前
-  - 若模块独立系统，可加在 achievements.js 后、gameInput.js 前
-  - 同步更新 tests/runner.cjs 的 order[] 数组
+  ═══════════════════════════════════════
+  模块维护规则
+  ═══════════════════════════════════════
+
+  【添加新模块】
+  1. 若模块被 game.js / gameLogic.js / gameInput.js 引用
+     → 加在 gameLogic.js 后、game.js 前
+  2. 若模块是独立系统（UI/工具）
+     → 加在 L4 任意位置
+  3. 若模块是基础原子
+     → 加在 L0-L1
+  4. 同步更新：
+     - 此注释（保持 18 → 19 等）
+     - tests/runner.cjs 的 order[] / moduleMap[] / classFiles
+     - README.md 徽章和项目结构章节
+     - CHANGELOG.md Unreleased section
+
+  【删除模块】
+  1. 先 grep 整个项目找所有引用：
+     grep -r "ModuleName" js/ tests/ index.html
+  2. 删除 /js/module-name.js
+  3. 从此注释移除
+  4. 从 tests/runner.cjs 移除（order[] / moduleMap[] / classFiles）
+  5. 从 game.js / gameLogic.js / gameInput.js 移除引用
+  6. 更新 README / CHANGELOG
+  7. 跑 npm test 验证（43/43 必须通过）
+  8. 警告：如果模块被 gameLogic / gameInput 引用，需先改这些
+     警告：被引用的 IIFE 模式模块（Audio/Utils/Effects/Difficulty 等）
+           不能直接删，需先去掉所有 .X 引用
+
+  【重构模块】
+  1. 重命名（js/foo.js → js/bar.js）：
+     - 用 git mv 重命名
+     - 同步所有引用（grep 找）
+     - tests/runner.cjs moduleMap['foo.js'] → moduleMap['bar.js']
+     - 跑测试验证
+  2. 拆分大文件（如 game.js 拆分）：
+     - 确认新模块有清晰职责
+     - 写测试覆盖新模块
+     - 旧文件转为"主类"只调用新模块
+  3. 合并小文件（如 utils.js 合并）：
+     - 检查所有 export
+     - 找到新归宿
+     - 删除旧文件
+  4. 移动到不同层（utils.js → config.js）：
+     - 检查依赖关系
+     - 更新加载顺序
+     - 同步所有引用
+
+  ═══════════════════════════════════════
+  核心原则
+  ═══════════════════════════════════════
+  1. 零依赖：永远不要添加 npm 依赖
+  2. 顺序敏感：上面的模块不能依赖下面的
+  3. 沙箱友好：IIFE 模式，window.X 暴露
+  4. class 友好：ES6 class 会被 (0, eval) 提取
+  5. 测试覆盖：核心模块必须有 test-*.cjs
+  6. 文档同步：任何模块变更需同步 README + CHANGELOG
 -->
 <script src="js/audio.js"></script>
 <script src="js/utils.js"></script>

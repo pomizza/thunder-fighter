@@ -1,0 +1,63 @@
+# Dependabot 配置
+# 文档: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+#
+# 注意：本项目坚持 0 npm 依赖，所以**不监控 npm dependencies/devDependencies**
+# 仅监控 GitHub Actions 版本（因为 CI 依赖第三方 actions）
+
+version: 2
+updates:
+  # === GitHub Actions 版本监控 ===
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      # 每周一 04:00 UTC 检查更新（默认）
+      day: "monday"
+      time: "04:00"
+      timezone: "UTC"
+    # PR 限制
+    open-pull-requests-limit: 3
+    # 自动合并补丁版本（修复 bug）
+    # 重要：minor/major 仍需人工 review
+    # 注意：必须先在 GitHub repo 设置中启用 "Allow auto-merge"
+    # 才能让以下规则生效
+    # （项目当前是占位仓库，无此权限，所以保持注释状态）
+    # target-branch: "master"
+    # commit-message:
+    #   prefix: "chore(actions)"
+    #   include: "scope"
+    # labels:
+    #   - "dependencies"
+    #   - "github-actions"
+    #   - "automated"
+    # ignore:
+    #   # 忽略 major 更新（破坏性变更需人工处理）
+    #   - dependency-name: "*"
+    #     update-types: ["version-update:semver-major"]
+    #   # 保持 actions/setup-node v4（如果工作流要支持 v20+ Node，需手动改）
+    #   - dependency-name: "actions/setup-node"
+    #     versions: [">= 5.0.0"]
+
+  # === npm 监控（明确禁用） ===
+  # 本项目坚持 0 依赖，所以**明确禁用** npm ecosystem 监控
+  # 如未来添加依赖，可启用以下配置：
+  # - package-ecosystem: "npm"
+  #   directory: "/"
+  #   schedule:
+  #     interval: "weekly"
+  #   # 重要：devDependencies 也要监控
+  #   # 不要自动 merge major 更新
+  #   groups:
+  #     dev-dependencies:
+  #       dependency-type: "development"
+  #   ignore:
+  #     - dependency-name: "*"
+  #       update-types: ["version-update:semver-major"]
+
+  # === Docker 监控（占位）===
+  # 本项目无 Dockerfile，不启用
+  # 如未来添加 Docker：
+  # - package-ecosystem: "docker"
+  #   directory: "/"
+  #   schedule:
+  #     interval: "weekly"

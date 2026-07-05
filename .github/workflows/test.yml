@@ -24,7 +24,7 @@ jobs:
     steps:
       # 1. 检出代码
       - name: 检出代码
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # 2. 设置 Node.js
       - name: 设置 Node.js ${{ matrix.node-version }}

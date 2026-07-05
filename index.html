@@ -1,8 +1,50 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+<!-- ============ 基础元信息 ============ -->
 <meta charset="UTF-8">
-<title>雷霆战机 · Thunder Fighter</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#02020a">
+
+<!-- ============ SEO ============ -->
+<title>雷霆战机 · Thunder Fighter - 纯 JS Canvas 射击游戏</title>
+<meta name="description" content="纯 HTML5 + JavaScript + Canvas 实现的高质量竖版射击游戏，5 大关卡，3 难度，3 战机，10 成就，0 外部依赖。可玩 30+ 分钟，支持桌面和移动端。">
+<meta name="keywords" content="雷霆战机,Thunder Fighter,射击游戏,街机,STG,Canvas,JavaScript,HTML5,开源,MIT,游戏,竖屏射击">
+<meta name="author" content="Thunder Fighter Contributors">
+<meta name="robots" content="index,follow">
+<meta name="application-name" content="Thunder Fighter">
+<meta name="generator" content="Vanilla JavaScript">
+
+<!-- ============ 移动端 / PWA 友好 ============ -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Thunder Fighter">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+
+<!-- ============ Favicon ============ -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="favicon.svg">
+<link rel="mask-icon" href="favicon.svg" color="#508cff">
+
+<!-- ============ Open Graph (Facebook, LinkedIn) ============ -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="雷霆战机 · Thunder Fighter">
+<meta property="og:description" content="纯 JavaScript + Canvas 实现的高质量竖版射击游戏，5 关 3 难度 3 战机 10 成就，0 依赖，30+ 分钟游戏体验。">
+<meta property="og:image" content="favicon.svg">
+<meta property="og:image:alt" content="Thunder Fighter 战机图标">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="Thunder Fighter">
+
+<!-- ============ Twitter Card ============ -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="雷霆战机 · Thunder Fighter">
+<meta name="twitter:description" content="纯 JS Canvas 射击游戏，5 关 3 难度 3 战机 10 成就，0 依赖。">
+<meta name="twitter:image" content="favicon.svg">
+<meta name="twitter:image:alt" content="Thunder Fighter Logo">
+
 <style>
   html,body{margin:0;padding:0;height:100%;background:#02020a;display:flex;align-items:center;justify-content:center;font-family:'Segoe UI',sans-serif;color:#eaeaff;overflow:hidden;user-select:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:none}
   #wrap{position:relative}
@@ -15,12 +57,70 @@
 <div class="hint">雷霆战机 · THUNDER FIGHTER</div>
 <div class="keys" id="hintKeys">方向键/WASD 移动 · Z 射击 · X 炸弹 · P 暂停 · 移动端使用屏幕虚拟摇杆</div>
 <div id="wrap"><canvas id="game" width="540" height="780"></canvas></div>
+<script>
+  // 暴露 perf 全局供 game.js 使用
+  if (typeof PerfMonitor !== 'undefined') {
+    window.perf = new PerfMonitor();
+    // F3 切换 FPS 显示
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F3') {
+        e.preventDefault();
+        window.perf.toggle();
+      }
+    });
+  }
+</script>
 
+<!--
+  雷霆战机 · Thunder Fighter
+  ================================
+  纯 HTML5 + JavaScript + Canvas 实现
+  0 外部依赖 · 17 个 JS 模块 · 3906 行代码
+  GitHub: https://github.com/...
+
+  模块加载顺序（按依赖关系）：
+  ─────────────────────────────────────
+  【基础层】无依赖的原子工具
+    1. audio.js       - WebAudio 程序化音效
+    2. utils.js       - 数学/碰撞/输入助手
+    3. config.js      - 时序/玩家/触屏常量集中管理
+
+  【效果层】视觉效果与基础对象
+    4. effects.js     - 粒子/拖尾/震动/星云/流星
+    5. bullets.js     - 子弹类
+    6. performance.js - FPS 计数器 + 性能基准（按 F3 切换显示）
+
+  【实体层】游戏对象
+    7. enemies.js     - 敌机/Boss/道具（3 个 class）
+    8. player.js      - 玩家战机
+
+  【数据层】静态配置和系统
+    9. levels.js      - 5 关脚本+波次执行
+    10. difficulty.js  - 3 难度系统
+
+  【系统层】可选/UI 系统
+    11. touch.js        - 触屏虚拟摇杆
+    12. shop.js         - 关卡间商店
+    13. shipSelect.js   - 战机选择
+    14. achievements.js - 10 成就+通知
+    15. replay.js       - 录像/回放
+
+  【核心层】游戏主类（最后加载）
+    16. gameInput.js    - 键盘事件路由（game.js 拆分）
+    17. gameLogic.js    - update 游戏逻辑（game.js 拆分）
+    18. game.js         - 主循环+状态机
+
+  添加新模块：
+  - 若模块被 game.js 引用，加在 gameLogic.js 后、game.js 前
+  - 若模块独立系统，可加在 achievements.js 后、gameInput.js 前
+  - 同步更新 tests/runner.cjs 的 order[] 数组
+-->
 <script src="js/audio.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/config.js"></script>
 <script src="js/effects.js"></script>
 <script src="js/bullets.js"></script>
+<script src="js/performance.js"></script>
 <script src="js/enemies.js"></script>
 <script src="js/player.js"></script>
 <script src="js/levels.js"></script>

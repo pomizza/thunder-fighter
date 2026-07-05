@@ -37,16 +37,21 @@ function loadModules() {
     window: { addEventListener: () => {}, ontouchstart: null }, document: { addEventListener: () => {}, getElementById: () => mockCanvas() },
     localStorage: { getItem: () => null, setItem: () => {}, removeItem: () => {} },
     requestAnimationFrame: () => 0,
-    performance: { now: () => Date.now() },
+    // performance: { now: () => Date.now() },  // 移除 mock，让沙箱用真实 performance
     navigator: { maxTouchPoints: 0 },
     Math, Date, Set, Map, Array, Object, console, parseInt, parseFloat, isNaN, JSON,
     setTimeout, clearTimeout, Number, String, Boolean
   };
   ctx.global = ctx; ctx.self = ctx;
+  // globalThis 模拟（vm 沙箱不自动创建）
+  Object.defineProperty(ctx, 'globalThis', { get: () => ctx, configurable: false });
+  // 用真实 performance 替代 mock（让 PerfMonitor.benchmark 能测到时间）
+  ctx.performance = require('perf_hooks').performance;
   vm.createContext(ctx);
 
   const order = [
     'utils.js', 'audio.js', 'config.js', 'effects.js', 'bullets.js',
+    'performance.js',
     'enemies.js', 'player.js', 'levels.js', 'difficulty.js',
     'touch.js', 'shop.js', 'shipSelect.js', 'achievements.js',
     'replay.js', 'gameInput.js', 'gameLogic.js', 'game.js'
@@ -58,6 +63,7 @@ function loadModules() {
     'utils.js': ['Utils'],
     'effects.js': ['Effects'],
     'bullets.js': ['Bullet'],
+    'performance.js': ['PerfMonitor'],
     'enemies.js': ['Enemy', 'Boss', 'PowerUp'],
     'player.js': ['Player'],
     'levels.js': ['Levels'],
@@ -74,7 +80,7 @@ function loadModules() {
   };
 
   // 哪些 module 是 class（ES6 class 不暴露到 global，需用 (0, eval) 间接 eval 取出）
-  const classFiles = new Set(['bullets.js', 'enemies.js', 'player.js', 'game.js']);
+  const classFiles = new Set(['bullets.js', 'enemies.js', 'player.js', 'game.js', 'performance.js']);
 
   const modules = {};
   for (const f of order) {

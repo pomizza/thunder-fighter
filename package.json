@@ -1,0 +1,59 @@
+{
+  "name": "thunder-fighter",
+  "version": "1.0.0",
+  "description": "纯 HTML5 + JavaScript + Canvas 实现的高质量竖版射击游戏，5 大关卡，3 难度，3 战机，10 成就，0 外部依赖",
+  "main": "index.html",
+  "scripts": {
+    "test": "node tests/runner.cjs",
+    "test:config": "node tests/runner.cjs test-config.cjs",
+    "test:achievements": "node tests/runner.cjs test-achievements.cjs",
+    "test:difficulty": "node tests/runner.cjs test-difficulty.cjs",
+    "test:shipSelect": "node tests/runner.cjs test-shipSelect.cjs",
+    "test:shop": "node tests/runner.cjs test-shop.cjs",
+    "test:replay": "node tests/runner.cjs test-replay.cjs",
+    "test:gameflow": "node tests/runner.cjs test-gameflow.cjs",
+    "start": "python3 -m http.server 8000",
+    "serve": "python3 -m http.server 8000",
+    "coverage": "node tests/coverage.cjs",
+    "stats": "node tests/coverage.cjs"
+  },
+  "keywords": [
+    "game",
+    "shooting",
+    "arcade",
+    "shoot-em-up",
+    "stg",
+    "html5",
+    "canvas",
+    "vanilla-js",
+    "no-dependencies"
+  ],
+  "author": "Thunder Fighter Contributors",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "index.html",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "js/",
+    "tests/"
+  ],
+  "browserslist": [
+    "Chrome >= 90",
+    "Firefox >= 88",
+    "Safari >= 14",
+    "Edge >= 90"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/thunder-fighter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/thunder-fighter/issues"
+  },
+  "homepage": "https://github.com/yourusername/thunder-fighter#readme",
+  "devDependencies": {}
+}

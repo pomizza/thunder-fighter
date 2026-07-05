@@ -688,11 +688,18 @@ class Game {
 
   loop() {
     let last = performance.now();
+    // 性能监控（如果 perf 全局可用）
+    const usePerf = (typeof window !== 'undefined') && window.perf;
     const tick = (now) => {
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
       this.update(dt);
       this.draw();
+      // 性能监控 tick + draw
+      if (usePerf) {
+        window.perf.tick(dt);
+        window.perf.draw(this.ctx, 6, 80);
+      }
       requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);

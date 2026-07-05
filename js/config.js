@@ -233,6 +233,16 @@ const Config = {
     color: '#ffffff', fireRate: 1.0, score: 30,
     pattern: 'straight',
   },
+
+  // === 性能硬上限 ===
+  // Effects.js 使用这些限制防止数组无限增长
+  // 修改后需测试游戏性能
+  PERFORMANCE_LIMITS: {
+    PARTICLES_MAX: 300,     // 粒子（爆炸/火花/拖尾）
+    METEORS_MAX: 8,          // 流星（视觉装饰）
+    FLOATS_MAX: 20,          // 浮动文字（分数弹出）
+    SHOCKWAVES_MAX: 8,       // 冲击波（炸弹/爆炸）
+  },
 };
 // 显式挂到 window
 window.Config = Config;

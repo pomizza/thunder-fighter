@@ -14,6 +14,7 @@
     "test:replay": "node tests/runner.cjs test-replay.cjs",
     "test:shipSelect": "node tests/runner.cjs test-shipSelect.cjs",
     "test:shop": "node tests/runner.cjs test-shop.cjs",
+    "test:e2e": "node tests/test-e2e.cjs",
     "coverage": "node tests/coverage.cjs",
     "stats": "node tests/coverage.cjs",
     "start": "python3 -m http.server 8000",

@@ -111,16 +111,23 @@ function describe(name, fn) {
   fn();
 }
 
+// 测试 promise 列表（用于 main 等待）
+const testPromises = [];
+
 function it(name, fn) {
-  try {
-    fn();
-    totalPassed++;
-    console.log(`    ${C.green}✓${C.reset} ${name}`);
-  } catch (e) {
-    totalFailed++;
-    console.log(`    ${C.red}✗${C.reset} ${name}`);
-    console.log(`      ${C.red}${e.message}${C.reset}`);
-  }
+  // 支持 async 测试
+  const run = async () => {
+    try {
+      await fn();
+      totalPassed++;
+      console.log(`    ${C.green}✓${C.reset} ${name}`);
+    } catch (e) {
+      totalFailed++;
+      console.log(`    ${C.red}✗${C.reset} ${name}`);
+      console.log(`      ${C.red}${e.message}${C.reset}`);
+    }
+  };
+  testPromises.push(run());
 }
 
 function skip(name) {
@@ -165,7 +172,7 @@ global.checkInRange = checkInRange;
 module.exports = { loadModules, mockCanvas, describe, it, skip, check, checkEq, checkClose, checkInRange };
 
 // 主程序才执行
-if (require.main === module) {
+async function main() {
   const args = process.argv.slice(2);
   const files = args.length > 0 ? args : fs.readdirSync(TESTS_DIR)
     .filter(f => /^test-.*\.cjs$/.test(f))
@@ -196,10 +203,20 @@ if (require.main === module) {
     }
   }
 
+  // 等待所有 async 测试完成
+  await Promise.all(testPromises);
+
   const elapsed = Date.now() - startTime;
   console.log(`\n${C.bold}=== 结果 ===${C.reset}`);
   console.log(`  ${C.green}通过: ${totalPassed}${C.reset}  ${C.red}失败: ${totalFailed}${C.reset}  ${C.yellow}跳过: ${totalSkipped}${C.reset}`);
   console.log(`  ${C.gray}耗时: ${elapsed}ms${C.reset}\n`);
 
   process.exit(totalFailed > 0 ? 1 : 0);
+}
+
+if (require.main === module) {
+  main().catch(e => {
+    console.error('Runner error:', e);
+    process.exit(1);
+  });
 }

@@ -1,7 +1,30 @@
 // levels.js - 关卡脚本：5大关，每关5波 + 1个Boss
+//
+// 【重要说明】本文件包含大量"魔数"（formation 位置/数量/间距、敌机数量/延迟、关卡背景色等）
+// 这些数字**不是通用配置**，而是**关卡设计数据**——关卡平衡的精确调参。
+//
+// 通用参数（如玩家/敌机/子弹基础属性）在 Config.js 集中管理。
+// 本文件专注于关卡数据：每关 5 波敌人 + 1 个 BOSS。
+//
+// 每波定义：{ type, count, delay, formation, ... }
+//  type: 'line' | 'v' | 'circle' | 'kamikaze' | 'sweep' | 'mixed'
+//  count: 敌机数量
+//  delay: 出生间隔（秒）
+//  enemyType: 'scout' | 'fighter' | 'tank' | 'sweeper' | 'kamikaze'
+
 const Levels = (() => {
+  // 画布中心 X（用于 formation 默认位置）
+  // 注：实际用 game.W/2 计算（适配不同分辨率）
+  // 此处保留 270 作为默认 540 宽度的中心点
+  const FORMATION_CENTER_X = 270;
+
+  // 屏幕外出生位置（formation 起始 Y，避免敌机一出现就可见）
+  const FORMATION_SPAWN_Y = -100;
+
+  // 屏幕顶部 Y（lineFormation 起始位置）
+  const FORMATION_TOP_Y = 0;
+
   // 通用波次模式
-  // 每波定义：{ type, count, delay, formation, ... }
   function lineFormation(y, n, spacing, type) {
     return { type: 'line', y, count: n, spacing, enemyType: type };
   }
@@ -23,11 +46,11 @@ const Levels = (() => {
       bg: '#0a1430',
       nebula: ['#1a3060', '#2a1850'],  // 蓝紫
       waves: [
-        lineFormation(0, 6, 60, 'scout'),
+        lineFormation(FORMATION_TOP_Y, 6, 60, 'scout'),
         vFormation(0, 5, 'scout'),
         { type: 'mixed', groups: [
-          lineFormation(0, 4, 70, 'scout'),
-          vFormation(-100, 5, 'scout')
+          lineFormation(FORMATION_TOP_Y, 4, 70, 'scout'),
+          vFormation(FORMATION_SPAWN_Y, 5, 'scout')
         ]},
         diamondFormation(0, 7, 'scout'),
         { type: 'sweep', count: 6, enemyType: 'fighter' }
@@ -41,12 +64,12 @@ const Levels = (() => {
       bg: '#1a0a20',
       nebula: ['#3a1040', '#551030'],  // 暗紫红
       waves: [
-        lineFormation(0, 8, 55, 'scout'),
+        lineFormation(FORMATION_TOP_Y, 8, 55, 'scout'),
         vFormation(0, 7, 'fighter'),
-        circleFormation(270, 80, 8, 100, 'scout'),
+        circleFormation(FORMATION_CENTER_X, 80, 8, 100, 'scout'),
         { type: 'mixed', groups: [
-          lineFormation(0, 5, 60, 'fighter'),
-          vFormation(-100, 5, 'scout')
+          lineFormation(FORMATION_TOP_Y, 5, 60, 'fighter'),
+          vFormation(FORMATION_SPAWN_Y, 5, 'scout')
         ]},
         { type: 'sweep', count: 8, enemyType: 'fighter' }
       ],
@@ -63,12 +86,12 @@ const Levels = (() => {
         { type: 'kamikaze', enemyType: 'kamikaze', count: 14, delay: 0.25 },
         { type: 'mixed', groups: [
           { type: 'kamikaze', enemyType: 'kamikaze', count: 8, delay: 0.4 },
-          lineFormation(0, 4, 70, 'tank')
+          lineFormation(FORMATION_TOP_Y, 4, 70, 'tank')
         ]},
         { type: 'kamikaze', enemyType: 'kamikaze', count: 16, delay: 0.2 },
         { type: 'mixed', groups: [
           { type: 'kamikaze', enemyType: 'kamikaze', count: 10, delay: 0.3 },
-          vFormation(-100, 5, 'fighter')
+          vFormation(FORMATION_SPAWN_Y, 5, 'fighter')
         ]}
       ],
       bossType: 'kamikaze',
@@ -80,12 +103,12 @@ const Levels = (() => {
       bg: '#0a1a30',
       nebula: ['#0a3060', '#0a5040'],  // 青绿极光
       waves: [
-        circleFormation(270, 80, 10, 120, 'sweeper'),
+        circleFormation(FORMATION_CENTER_X, 80, 10, 120, 'sweeper'),
         { type: 'mixed', groups: [
-          lineFormation(0, 6, 55, 'sweeper'),
-          vFormation(-100, 5, 'fighter')
+          lineFormation(FORMATION_TOP_Y, 6, 55, 'sweeper'),
+          vFormation(FORMATION_SPAWN_Y, 5, 'fighter')
         ]},
-        circleFormation(270, 100, 12, 130, 'sweeper'),
+        circleFormation(FORMATION_CENTER_X, 100, 12, 130, 'sweeper'),
         { type: 'sweep', count: 10, enemyType: 'sweeper' },
         { type: 'mixed', groups: [
           circleFormation(150, 80, 6, 90, 'sweeper'),
@@ -102,13 +125,13 @@ const Levels = (() => {
       nebula: ['#3a0a30', '#1a0530'],  // 深紫
       waves: [
         { type: 'mixed', groups: [
-          lineFormation(0, 5, 60, 'tank'),
-          vFormation(-100, 5, 'sweeper')
+          lineFormation(FORMATION_TOP_Y, 5, 60, 'tank'),
+          vFormation(FORMATION_SPAWN_Y, 5, 'sweeper')
         ]},
-        circleFormation(270, 80, 12, 130, 'fighter'),
+        circleFormation(FORMATION_CENTER_X, 80, 12, 130, 'fighter'),
         { type: 'mixed', groups: [
           { type: 'kamikaze', enemyType: 'kamikaze', count: 10, delay: 0.3 },
-          lineFormation(0, 6, 60, 'tank')
+          lineFormation(FORMATION_TOP_Y, 6, 60, 'tank')
         ]},
         { type: 'mixed', groups: [
           circleFormation(150, 80, 8, 100, 'sweeper'),

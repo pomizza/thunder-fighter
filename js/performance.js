@@ -19,6 +19,18 @@ class PerfMonitor {
     this.maxFrameSamples = 60;
     this.startTime = Date.now();
     this.visible = false;  // 默认隐藏，按 F3 切换
+    // 长时统计（最近 1 分钟）
+    this.longTermSamples = [];  // [{fps, ts}]
+    this.maxLongTerm = 60;  // 60 个采样点
+    this.longTermTimer = 0;
+    this.longTermInterval = 1.0;  // 每秒采样一次
+    // 内存基线
+    this.memoryBaseline = (typeof performance !== 'undefined' && performance.memory)
+      ? performance.memory.usedJSHeapSize
+      : 0;
+    this.peakMemory = this.memoryBaseline;
+    // 长时统计基线
+    this.sessionStartFps = 0;
   }
 
   /**
@@ -39,6 +51,11 @@ class PerfMonitor {
     const instantFps = 1 / Math.max(0.001, dt);
     this.minFps = Math.min(this.minFps, instantFps);
     this.maxFps = Math.max(this.maxFps, instantFps);
+    // 内存峰值追踪
+    if (typeof performance !== 'undefined' && performance.memory) {
+      const mem = performance.memory.usedJSHeapSize;
+      if (mem > this.peakMemory) this.peakMemory = mem;
+    }
 
     // 每秒更新一次 FPS
     if (this.totalTime >= 1.0) {
@@ -157,6 +174,49 @@ class PerfMonitor {
     this.minFps = Infinity;
     this.maxFps = 0;
     this.frameTimes = [];
+    this.longTermSamples = [];
+    this.longTermTimer = 0;
+    this.peakMemory = this.memoryBaseline;
+  }
+
+  // 内存使用（MB）— 浏览器环境
+  getMemoryMB() {
+    if (typeof performance !== 'undefined' && performance.memory) {
+      return Math.round(performance.memory.usedJSHeapSize / 1024 / 1024 * 10) / 10;
+    }
+    return 0;
+  }
+
+  // 内存峰值（MB）
+  getPeakMemoryMB() {
+    return Math.round(this.peakMemory / 1024 / 1024 * 10) / 10;
+  }
+
+  // 内存增长（相对基线，MB）
+  getMemoryGrowthMB() {
+    if (this.memoryBaseline === 0) return 0;
+    return Math.round((this.peakMemory - this.memoryBaseline) / 1024 / 1024 * 10) / 10;
+  }
+
+  // 性能快照
+  takeSnapshot() {
+    return {
+      ts: Date.now() - this.startTime,
+      uptimeSec: Math.round((Date.now() - this.startTime) / 1000),
+      fps: this.lastSecondFps,
+      minFps: this.minFps === Infinity ? 0 : Math.round(this.minFps),
+      maxFps: Math.round(this.maxFps),
+      avgFrameMs: this.getFrameStats().avg,
+      memMB: this.getMemoryMB(),
+      peakMemMB: this.getPeakMemoryMB(),
+      memGrowthMB: this.getMemoryGrowthMB(),
+      samples: this.longTermSamples.length
+    };
+  }
+
+  // 长时统计样本数
+  getLongTermCount() {
+    return this.longTermSamples.length;
   }
 }
 

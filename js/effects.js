@@ -1,5 +1,7 @@
 // effects.js - 粒子、特效、屏幕震动
 const Effects = (() => {
+  // 硬上限（性能优化）：见 Config.js
+  // 粒子 300 / 流星 8 / 浮动文字 20
   const particles = [];
   const floats = [];   // 浮动文字（分数弹出）
   const stars = [];    // 背景星空
@@ -42,8 +44,9 @@ const Effects = (() => {
 
   // 触发一颗流星
   function spawnMeteor(W, H) {
-    // 性能：流星数硬上限 8
-    if (meteors.length >= 8) return;
+    // 性能：流星数硬上限（从 Config 读取）
+    const meteorsMax = (window.Config && window.Config.METEORS_MAX) || 8;
+    if (meteors.length >= meteorsMax) return;
     // 从屏幕顶部或左侧进入
     const fromTop = Math.random() < 0.6;
     const x = fromTop ? Math.random() * W : -50;
@@ -148,9 +151,10 @@ const Effects = (() => {
   function getShakeY() { return shakeOffsetY; }
 
   function spawnExplosion(x, y, color = '#ffaa33', count = 18, speed = 220) {
-    // 性能：粒子数硬上限 300
-    if (particles.length >= 300) return;
-    const available = 300 - particles.length;
+    // 性能：粒子数硬上限（从 Config 读取）
+    const particlesMax = (window.Config && window.Config.PARTICLES_MAX) || 300;
+    if (particles.length >= particlesMax) return;
+    const available = particlesMax - particles.length;
     const n = Math.min(count, available);
     for (let i = 0; i < n; i++) {
       const a = Math.random() * Math.PI * 2;
@@ -166,8 +170,9 @@ const Effects = (() => {
     }
   }
   function spawnSparks(x, y, color = '#ffff66', count = 6) {
-    if (particles.length >= 300) return;
-    const available = 300 - particles.length;
+    const particlesMax = (window.Config && window.Config.PARTICLES_MAX) || 300;
+    if (particles.length >= particlesMax) return;
+    const available = particlesMax - particles.length;
     const n = Math.min(count, available);
     for (let i = 0; i < n; i++) {
       const a = Math.random() * Math.PI * 2;
@@ -176,11 +181,14 @@ const Effects = (() => {
     }
   }
   function spawnShockwave(x, y, color, maxR = 160, speed = 600) {
-    if (shockwaves.length >= 20) return;
+    const shockwavesMax = (window.Config && window.Config.SHOCKWAVES_MAX) || 20;
+    if (shockwaves.length >= shockwavesMax) return;
     shockwaves.push({ x, y, r: 4, vr: speed, maxR, life: maxR / speed, color });
   }
   function floatText(x, y, text, color = '#ffee88') {
-    if (floats.length >= 20) floats.shift();  // 满则移除最老的
+    // 性能：浮动文字硬上限（从 Config 读取）
+    const floatsMax = (window.Config && window.Config.FLOATS_MAX) || 20;
+    if (floats.length >= floatsMax) floats.shift();  // 满则移除最老的
     floats.push({ x, y, vy: -40, life: 0.8, text, color });
   }
 

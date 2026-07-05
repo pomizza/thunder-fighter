@@ -11,11 +11,11 @@
 | **类型** | 2D 街机射击（STG）|
 | **技术栈** | HTML5 + JavaScript + Canvas |
 | **依赖** | 0 npm 依赖 |
-| **代码量** | 5926 行（18 JS + 9 测试 + 8 文档）|
-| **测试** | 43/43 通过 |
+| **代码量** | 5926 行（18 JS + 12 测试 + 8 文档）|
+| **测试** | 80/80 通过 (~90ms) |
 | **首次 commit** | 64a79b2（20 轮迭代）|
-| **正式发布** | v1.0.0 (2026-07-05, commit 178125b) |
-| **当前 commit** | c451194（性能 + 开源配置）|
+| **正式发布** | v1.0.0 (2026-07-05, commit 1ebca6b) |
+| **当前 commit** | 8922936（v1.0.0 完善完成）|
 | **开发模式** | 单作者迭代 |
 | **许可** | MIT |
 
@@ -112,7 +112,7 @@ if (this.state === 'levelClear' && this.player && this.player.alive
 2. `Object.defineProperty(ctx, 'globalThis', { get: () => ctx })` 模拟 globalThis
 3. `ctx.performance = require('perf_hooks').performance` 用真实 performance
 
-**结果**：43/43 测试通过，0 依赖，~50ms 跑完
+**结果**：80/80 测试通过，0 依赖，~90ms 跑完
 
 **对比 c8/nyc**：
 - **c8** 失败：V8 覆盖率 API 不跟踪 vm 沙箱（0%）
@@ -276,7 +276,7 @@ if (this.state === 'levelClear' && this.player && this.player.alive
 | **UI/draw 测试** | 🔴 高 | 🟡 中 |
 | **覆盖率统计** | 🟢 低 | 🟡 中 |
 
-**本项目**：核心逻辑 + 集成 = 43/43 测试，跳过 UI（手动测）
+**本项目**：核心逻辑 + 集成 = 80/80 测试，跳过 UI（手动测）
 
 ## 🚀 未来方向
 

@@ -336,6 +336,7 @@ menu → selectShip → levelIntro → playing → levelClear → [Shop] → lev
 
 详细历史见 [CHANGELOG.md](CHANGELOG.md)（每轮记录）
 设计决策见 [PROJECT_LOG.md](PROJECT_LOG.md)（决策与经验）
+- 架构/依赖图见 [ARCHITECTURE.md](ARCHITECTURE.md)（6 层结构 + 状态机）
 
 ---
 

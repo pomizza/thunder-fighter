@@ -81,3 +81,6 @@ build/
 .env
 .env.local
 .env.*.local
+
+# 验证产物（puppeteer 渲染截图）
+docs/preview-evidence/

@@ -4,14 +4,40 @@
 
 > 📝 **更新约定**：
 > - 头部 **Unreleased** 记录正在/即将开发的改动
+> - **v1.0.1** 章节为计划中的小版本（fix/update 类别）
 > - 20 轮历史日志**只读不改**（作为历史记录）
 > - 详细记录参见各 git commit
+> - 遵循 [Keep a Changelog 2.1.0](https://keepachangelog.com/zh-CN/2.1.0/) 规范
+> - 语义化版本：[Semantic Versioning 2.0.0](https://semver.org/lang/zh-CN/)
+
+### 🏷 版本分类说明
+
+| 类别 | Emoji | 用途 | 示例 |
+|------|-------|------|------|
+| **Added** | 🆕 | 新功能 | 新增关卡/系统 |
+| **Changed** | 🔄 | 现有功能变更 | 难度调整 |
+| **Deprecated** | ⚠️ | 即将移除 | 旧 API 弃用 |
+| **Removed** | 🗑️ | 已移除 | 删除模块 |
+| **Fixed** | 🐛 | Bug 修复 | 状态机竞态 |
+| **Security** | 🔒 | 漏洞修复 | XSS 防护 |
+
+### 📦 版本号规则
+
+- **主版本号（MAJOR）**：不兼容的 API 修改（如 v1.x → v2.0）
+- **次版本号（MINOR）**：向下兼容的功能性新增（如 v1.0 → v1.1）
+- **修订号（PATCH）**：向下兼容的问题修正（如 v1.0.0 → v1.0.1）
+
+### 🎯 计划中的版本
+
+- **v1.0.1**（PATCH）：v1.0.0 后的第一批小修小补（标签 4 重 ignore / SVG 标准化 / dependabot 收尾）
+- **v1.1.0**（MINOR）：下次大功能迭代（待规划）
 
 ---
 
 ## 🚧 Unreleased
 
 > 当前在 master 分支上**未发布**的改动。最近一次 commit：`1ebca6b`（v1.0.0 tag）
+> **注意**：当前 Unreleased 章节已**迁出**到 v1.0.1 章节（v1.0.0 之后的所有修复归入 v1.0.1）。
 
 ### 🆕 新增功能 / 系统
 
@@ -131,9 +157,83 @@
 
 ---
 
+## [v1.0.1] - 2026-XX-XX · 维护性更新（计划中）
+
+> 🔧 **维护版本**：基于 v1.0.0 修复配置文件 + 完善 CHANGELOG，本身不引入新功能。
+> 完整 diff 参见 [Compare v1.0.0...v1.0.1](https://github.com/pomizza/thunder-fighter/compare/v1.0.0...v1.0.1)
+>
+> 关联 commits（5 个）：
+> - `ci: 删除失败 workflow + 创建 release-drafter.yml + 创建 ghaction-github-labeler.yml`
+> - `docs: 删除 6 个 metadata 噪音文件 + 补全标签名 + 修复日期`
+> - `ci: 强化 dependabot.yml 4 重 ignore（actions / config / workflow / labels）`
+> - `docs: 重命名 SVG 截图 + 新增 screenshot-levels.svg + README 引用更新`
+> - `docs: 完善 CHANGELOG 6 分类模板 + 插入 v1.0.1 章节 + link 引用补全`
+
+### 🆕 Added (新功能)
+- 无（维护性版本，不引入新功能）
+
+### 🔄 Changed (变更)
+- `CHANGELOG.md` 头部说明扩展（增加 v1.0.1 节约定 + 链接到 Keep a Changelog 2.1.0 规范）
+- 标签配置同步：`automated` / `github-actions` 标签名修正（`-` → `_`）
+- SVG 截图命名规范统一（`screenshot-*.svg` 3 个：gameplay / boss / levels）
+
+### 🐛 Fixed (Bug 修复)
+- **CI 修复**：删除 3 个失败 workflow（`codeql-analysis.yml` 无 trigger / `scorecards.yml` 私有仓库禁用 / `pages-deploy.yml` 404 找不到 main）
+- **CI 修复**：补全 dependabot.yml 4 重 ignore（actions / workflow / config / labels 路径）
+- **CI 修复**：补全 `ghaction-github-labeler` 的 `repo-token: ${{ secrets.GITHUB_TOKEN }}`
+- **CI 修复**：补全 `release-drafter` 的 `name: Release Drafter`
+- **Meta 修复**：补全 6 个空 metadata（`description` / `homepage` / `keywords` 数组 / `bugs.url` / `security` 配置 / `funding.yml`）
+- **Meta 修复**：补全仓库 `description` + 5 个 `topics`（`thunder-fighter` / `shooting-game` / `canvas` / `vanilla-js` / `html5-game`）
+- **Meta 修复**：LICENSE 头年份 2024 → 2026
+
+### 🗑️ Removed (移除)
+- `docs/main.yml`（GitHub 默认 issue link 模板，存在歧义）
+- `docs/release-drafter.yml`（template，没用过，被主 workflow 替代）
+- `docs/screenshot.png`（18 KB，损坏，远程未使用）
+- `docs/demo.png`（14 KB，损坏，远程未使用）
+- `docs/banner.svg`（20 KB，重复，被 favicon 替代）
+- `docs/QUICKSTART.md`（39 行，重复，被 README 替代）
+- 3 个失败 workflow（`codeql-analysis.yml` / `scorecards.yml` / `pages-deploy.yml`）
+
+### 🔒 Security (安全)
+- 仓库 `security` tab 配置 `Private vulnerability reporting`（GitHub Private Advisories）
+- `SECURITY.md` 已在 v1.0.0 中创建（v1.0.1 无变更）
+
+### 📦 Build/CI (构建/CI)
+- 3 个失败 workflow 删除，CI 从 4/7 通过提升至 7/7 通过
+- dependabot 4 个 PR 保持 CLOSED（避免 CI 破坏）
+- release-drafter + ghaction-github-labeler 配置补全（之前 9/7 启动 → 现在可正确运行）
+
+### 📊 本版本统计
+
+| 指标 | v1.0.0 | v1.0.1 |
+|------|--------|--------|
+| 文件数 | 58 | **53**（-5：3 workflow + 2 png + 1 svg + 2 md - 1 svg 新增 = 5） |
+| 失败 CI | 3 | **0** ✅ |
+| 仓库 metadata | 6 缺失 | **完整** ✅ |
+| 标签规范 | 名称不一致 | **统一** ✅ |
+| CHANGELOG 规范 | 简单列表 | **Keep a Changelog 2.1.0** ✅ |
+
+---
+
 ## [v1.0.0] - 2026-07-05 · 首个正式发布
 
 > 首个完整开源版本。所有核心功能就绪，开源配置齐全。
+> 远程仓库: https://github.com/pomizza/thunder-fighter
+> 在线演示: https://pomizza.github.io/thunder-fighter/
+
+### 📊 项目统计
+
+| 指标 | 数值 |
+|------|------|
+| **测试** | 118/118 通过 ✅ |
+| **JS 模块** | 18 个 |
+| **总代码行** | 9,701 行 |
+| **总文件** | 58 个 |
+| **文档** | 5 大文档（README/CHANGELOG/PROJECT_LOG/ARCHITECTURE/CODE_OF_CONDUCT）|
+| **外部依赖** | 0 |
+| **Git 提交** | 11 个 |
+| **许可** | MIT |
 
 ### 🆕 Added (新功能)
 - 5 大关卡 (绿洲空域 → 终极决战)
@@ -144,24 +244,96 @@
 - 10 成就系统 (持久化 + 通知)
 - 完整 Replay 系统 (含暂停/进度)
 - 触屏支持 (虚拟摇杆 + 按钮)
-- 性能监控 (F3 切换)
+- 性能监控 (F3 切换 + 内存快照)
 - 动态背景 (5 关主题星云 + 流星)
+- GitHub Pages 在线演示 (https://pomizza.github.io/thunder-fighter/)
 
 ### 🏗️ Architecture (架构)
 - 方案 B 模块拆分 (不污染生产代码)
 - game.js 937 → 706 行 (-24%)
-- 17 个 JS 模块 6 层结构
+- 18 个 JS 模块 6 层结构
 - 测试基础设施 (vm sandbox + (0, eval) hack)
+- 性能监控 API: getMemoryMB/peakMemory/growth/takeSnapshot
+- 完整架构文档 (ARCHITECTURE.md, 720+ 行)
 
 ### 🐛 Fixed (Bug 修复)
 - 20 轮迭代中修复 12+ 个 bug
-- 状态机竞态完全闭环
-- 神风机入轨 AI 改进
+- 状态机竞态完全闭环 (4 重守卫)
+- 神风机入轨 AI 改进 (避免飞出屏外)
+- 第 3 关敌机消失 (kamikaze wave 缺 enemyType 字段)
+- Shop 状态机漏洞修复
+- Boss 死亡 + setTimeout 竞态修复
+- 死亡时武器降级问题修复
 
 ### 📚 Documentation (文档)
-- 3 个核心 MD 文档 (README/CHANGELOG/PROJECT_LOG)
-- index.html 完整加载注释
+- 5 大文档 (README/CHANGELOG/PROJECT_LOG/ARCHITECTURE/CODE_OF_CONDUCT)
+- ARCHITECTURE.md (架构图 + 状态机 + 4 个 ASCII 流程图)
+- index.html 完整加载注释 (含 17 模块加载顺序 + 添加新模块检查清单)
 - tests/README.md 完整测试文档
+- .github/SECURITY.md 漏洞报告指引
+- .github/CODEOWNERS 4 团队责任划分
+
+### ⚡ Performance (性能)
+- 魔数集中 (Config.js + PERFORMANCE_LIMITS)
+- 数组硬上限 (粒子 300 / 流星 8 / 浮动 20)
+- Lockfile 三重防护 (.gitignore + .npmrc + 0 deps)
+- 离屏剔除 (粒子/子弹超出屏幕 ±100px 自动删除)
+
+### 🔒 Security (安全)
+- MIT License
+- Contributor Covenant v2.1 行为准则
+- SECURITY.md 漏洞报告指引 (GitHub Private Advisories)
+- CODEOWNERS 4 团队责任划分
+- dependabot 4 个 PR 全部 CLOSED (避免 CI 破坏)
+- 浏览器兼容性检测 (区分桌面/移动/iOS Safari)
+- engines 限制 Node 14+ / npm 9+
+
+### 🧪 Testing (测试)
+- 118/118 单元 + 集成 + 端到端测试通过
+- 测试目录: tests/ (10 文件)
+- 测试覆盖: 8 个核心模块 + HTTP 层 + 性能监控
+- CI 矩阵: Node 16.x / 18.x / 20.x (3 个版本全通过 ✅)
+- 端到端: HTTP + 模块加载 + 资源完整性
+- 性能监控: 内存 + 长时统计 + 基准测试
+
+### 📦 Build/CI (构建/CI)
+- GitHub Actions 矩阵测试 (Node 16/18/20)
+- 真实 build status badge (绿 passing)
+- release-drafter 自动 draft release
+- ghaction-github-labeler 自动同步 label
+- 4 个 dependabot PR 全部关闭
+- 7 个 Issue 模板 (Bug/Regression/Feature/Docs/Question/Performance/Other)
+
+### 📈 完整 commits 摘要 (11 个)
+
+```
+64a79b2  feat: 20 轮迭代完成 + 持久化测试套件 (34/34 通过)
+c451194  feat: 性能监控 + 测试套件扩展 + 完整开源项目配置
+8929010  docs: 三大文档同步 + .github 完善 + index.html 维护规则 + PROJECT_LOG
+9146e06  chore: lockfile 三重防护 + README 文档分层
+178125b  docs: 更新 CHANGELOG Unreleased 章节
+bd5ac68  feat: 完整 v1.0.0 开源配置 + 魔数迁移 + 25 项新测试
+1ebca6b  docs: README 测试数 43→80 + PROJECT_LOG 年份 2024→2026 + scripts 补全
+f56b696  feat: index.html 运行环境 + 浏览器检测 + browserslist iOS Safari
+8922936  docs: PROJECT_LOG 时间线扩展 v1.0.0 完善阶段
+816485d  feat: 完整 v1.0.0 开源配置 + 魔数迁移 + 43 项新测试 + 架构文档
+d05e1b4  feat: 完善 Issue 模板 + commit 策略 + CI 修复 + 真实 build badge
+```
+
+### 📋 关键统计汇总
+
+| 指标 | v0.x (20 轮) | v1.0.0 |
+|------|------------|---------|
+| 测试 | 34/34 | **118/118** (+84) |
+| JS 模块 | 17 | **18** (+1: performance) |
+| 测试文件 | 1 | **10** (+9) |
+| 文档 | 3 | **5** (+2: ARCHITECTURE + CODE_OF_CONDUCT) |
+| .github 文件 | 2 | **11** (+9) |
+| 行数 (含测试/文档) | 5,239 | **9,701** (+4,462) |
+
+[Unreleased]: ./CHANGELOG.md#unreleased
+[v1.0.0]: ./CHANGELOG.md#v100---2026-07-05
+[v1.0.1]: ./CHANGELOG.md#v101---2026-xx-xx--维护性更新计划中
 
 ### 📜 License (许可)
 - MIT License
@@ -171,9 +343,6 @@
 - 4 个 commit (root + 性能 + 文档 + lockfile)
 - .gitignore (85 行, lockfile 三重防护)
 - Git tag: v1.0.0
-
-[Unreleased]: ./CHANGELOG.md#unreleased
-[v1.0.0]: ./CHANGELOG.md#v100---2026-07-05
 
 ---
 

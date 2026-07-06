@@ -2,6 +2,13 @@
 
 > **v1.0.0 正式发布** · 一个完整的高质量竖版射击游戏，纯 HTML5 + JavaScript + Canvas 实现，可玩 30+ 分钟。
 
+## 🎬 游戏截图
+
+| 游戏中 | Boss 战 | 关卡选择 |
+|:------:|:------:|:------:|
+| ![游戏中](docs/images/screenshot-gameplay.svg) | ![Boss 战](docs/images/screenshot-boss.svg) | ![关卡选择](docs/images/screenshot-levels.svg) |
+| 第三关 · 神风烈焰 | Boss 战 · 烈焰 8 方向弹幕 | 20 关卡 + 5 Boss 完整流程 |
+
 ![完成度](https://img.shields.io/badge/rounds-20%2F20-brightgreen) ![代码](https://img.shields.io/badge/lines-5926-blue) ![模块](https://img.shields.io/badge/modules-18-orange) ![测试](https://img.shields.io/badge/tests-80%2F80-brightgreen) ![依赖](https://img.shields.io/badge/dependencies-0-success) ![CI](https://github.com/pomizza/thunder-fighter/actions/workflows/test.yml/badge.svg) ![License](https://img.shields.io/badge/license-MIT-blue) ![Version](https://img.shields.io/badge/version-v1.0.0-success) ![Pages](https://img.shields.io/badge/GitHub%20Pages-deployed-success)
 
 ## 🛠️ 环境要求
@@ -341,6 +348,7 @@ menu → selectShip → levelIntro → playing → levelClear → [Shop] → lev
 详细历史见 [CHANGELOG.md](CHANGELOG.md)（每轮记录）
 设计决策见 [PROJECT_LOG.md](PROJECT_LOG.md)（决策与经验）
 - 架构/依赖图见 [ARCHITECTURE.md](ARCHITECTURE.md)（6 层结构 + 状态机）
+- 一站式状态见 [STATUS.md](STATUS.md)（CI/测试/版本/在线演示）
 
 ---
 

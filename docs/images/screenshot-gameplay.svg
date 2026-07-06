@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 780" width="270" height="390" font-family="-apple-system, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#02020a"/>
+      <stop offset="50%" stop-color="#200a0a"/>
+      <stop offset="100%" stop-color="#02020a"/>
+    </linearGradient>
+    <radialGradient id="nebula" cx="50%" cy="30%">
+      <stop offset="0%" stop-color="#4a1a08" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#02020a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="540" height="780" fill="url(#bg)"/>
+  <rect width="540" height="780" fill="url(#nebula)"/>
+
+  <!-- 星星 -->
+  <circle cx="80" cy="60" r="0.8" fill="#ffaa88" opacity="0.6"/>
+  <circle cx="200" cy="100" r="0.8" fill="#ffffff" opacity="0.5"/>
+  <circle cx="350" cy="50" r="0.6" fill="#ff8866" opacity="0.5"/>
+  <circle cx="450" cy="120" r="0.8" fill="#aaccff" opacity="0.6"/>
+  <circle cx="120" cy="180" r="0.6" fill="#ffffff" opacity="0.5"/>
+  <circle cx="380" cy="200" r="0.8" fill="#ffaa88" opacity="0.5"/>
+
+  <!-- 流星（视觉装饰） -->
+  <line x1="80" y1="150" x2="100" y2="135" stroke="#ffaa88" stroke-width="1.5" opacity="0.7"/>
+  <line x1="380" y1="100" x2="400" y2="85" stroke="#ffdd99" stroke-width="1.2" opacity="0.6"/>
+
+  <!-- HUD: 血量/分数 -->
+  <rect x="20" y="20" width="120" height="14" rx="3" fill="#442222" stroke="#88ff88" stroke-width="1"/>
+  <rect x="22" y="22" width="100" height="10" rx="2" fill="#88ff88"/>
+  <text x="80" y="30" text-anchor="middle" font-size="9" fill="#ffffff">HP 4/5</text>
+
+  <text x="20" y="60" font-size="11" fill="#ffdd44">★ ×2</text>
+  <text x="270" y="32" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">12,500</text>
+  <text x="520" y="32" text-anchor="end" font-size="10" fill="#88ff88">Combo 5x</text>
+
+  <!-- 关卡显示 -->
+  <text x="270" y="55" text-anchor="middle" font-size="10" fill="#88ccff">第三关 · 神风烈焰</text>
+
+  <!-- 玩家（蓝隼）-->
+  <g transform="translate(270, 670)">
+    <ellipse cx="0" cy="-2" rx="6" ry="9" fill="#aaffff"/>
+    <polygon points="0,-15 14,10 7,10 8,20 0,16 -8,20 -7,10 -14,10" fill="#2266dd" stroke="#88aaff" stroke-width="1.5"/>
+    <!-- 引擎尾焰 -->
+    <polygon points="-4,15 4,15 2,28 -2,28" fill="#ffaa33" opacity="0.8"/>
+    <polygon points="-2,25 2,25 0,36 -4,36" fill="#ff5522" opacity="0.5"/>
+  </g>
+
+  <!-- 玩家子弹 -->
+  <rect x="266" y="630" width="3" height="12" fill="#aaffff"/>
+  <rect x="270" y="600" width="3" height="12" fill="#aaffff"/>
+  <rect x="274" y="570" width="3" height="12" fill="#aaffff"/>
+  <rect x="268" y="540" width="3" height="12" fill="#aaffff"/>
+
+  <!-- 敌弹 -->
+  <circle cx="100" cy="500" r="3" fill="#ff8855"/>
+  <circle cx="180" cy="450" r="3" fill="#ff8855"/>
+  <circle cx="350" cy="480" r="3" fill="#ff8855"/>
+  <circle cx="430" cy="430" r="3" fill="#ff8855"/>
+  <circle cx="250" cy="500" r="3" fill="#ff8855"/>
+
+  <!-- 敌机（scout 类型）-->
+  <g transform="translate(120, 320)">
+    <ellipse cx="0" cy="-1" rx="4" ry="6" fill="#ff7777"/>
+    <polygon points="0,-10 10,8 5,8 6,15 0,12 -6,15 -5,8 -10,8" fill="#cc3333" stroke="#ff7777" stroke-width="1"/>
+  </g>
+  <g transform="translate(220, 280)">
+    <ellipse cx="0" cy="-1" rx="4" ry="6" fill="#ff7777"/>
+    <polygon points="0,-10 10,8 5,8 6,15 0,12 -6,15 -5,8 -10,8" fill="#cc3333" stroke="#ff7777" stroke-width="1"/>
+  </g>
+  <g transform="translate(370, 350)">
+    <ellipse cx="0" cy="-1" rx="4" ry="6" fill="#ff7777"/>
+    <polygon points="0,-10 10,8 5,8 6,15 0,12 -6,15 -5,8 -10,8" fill="#cc3333" stroke="#ff7777" stroke-width="1"/>
+  </g>
+
+  <!-- 神风机（kamikaze 类型） -->
+  <g transform="translate(420, 380)">
+    <polygon points="0,0 -8,-10 -5,-10 -7,-18 0,-22 7,-18 5,-10 8,-10" fill="#ff4477" stroke="#ff88aa" stroke-width="1.5"/>
+    <!-- 锁定线 -->
+    <line x1="0" y1="0" x2="0" y2="80" stroke="#ff4477" stroke-width="0.5" opacity="0.4" stroke-dasharray="2,2"/>
+  </g>
+  <g transform="translate(80, 400)">
+    <polygon points="0,0 -8,-10 -5,-10 -7,-18 0,-22 7,-18 5,-10 8,-10" fill="#ff4477" stroke="#ff88aa" stroke-width="1.5"/>
+    <line x1="0" y1="0" x2="0" y2="80" stroke="#ff4477" stroke-width="0.5" opacity="0.4" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- 道具 -->
+  <g transform="translate(160, 550)">
+    <circle cx="0" cy="0" r="8" fill="#ffdd44" stroke="#ffffff" stroke-width="1"/>
+    <text x="0" y="3" text-anchor="middle" font-size="10" fill="#000000" font-weight="bold">P</text>
+  </g>
+
+  <!-- 爆炸粒子 -->
+  <circle cx="350" cy="500" r="3" fill="#ffaa44"/>
+  <circle cx="365" cy="490" r="2" fill="#ff6622"/>
+  <circle cx="340" cy="510" r="2" fill="#ffdd88"/>
+  <circle cx="380" cy="505" r="3" fill="#ffaa44"/>
+  <circle cx="370" cy="520" r="2" fill="#ff6622"/>
+
+  <!-- 浮动文字 -->
+  <text x="350" y="490" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffff44">+100</text>
+  <text x="350" y="475" text-anchor="middle" font-size="9" fill="#88ff88">5x COMBO</text>
+
+  <!-- 标题 -->
+  <text x="270" y="755" text-anchor="middle" font-size="9" fill="#555577">截图 2: 游戏中（神风烈焰关卡）</text>
+</svg>

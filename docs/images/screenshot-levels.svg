@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 780" width="270" height="390" font-family="-apple-system, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#02020a"/>
+      <stop offset="50%" stop-color="#0a1428"/>
+      <stop offset="100%" stop-color="#02020a"/>
+    </linearGradient>
+    <radialGradient id="nebula-l1" cx="50%" cy="30%">
+      <stop offset="0%" stop-color="#1a3060" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#02020a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nebula-l2" cx="50%" cy="70%">
+      <stop offset="0%" stop-color="#2a1850" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#02020a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="540" height="780" fill="url(#bg)"/>
+  <rect width="540" height="780" fill="url(#nebula-l1)"/>
+  <rect width="540" height="780" fill="url(#nebula-l2)"/>
+
+  <!-- 星星 -->
+  <circle cx="80" cy="60" r="0.8" fill="#aaccff" opacity="0.6"/>
+  <circle cx="200" cy="100" r="0.8" fill="#ffffff" opacity="0.5"/>
+  <circle cx="350" cy="50" r="0.6" fill="#88aaff" opacity="0.5"/>
+  <circle cx="450" cy="120" r="0.8" fill="#ffffff" opacity="0.6"/>
+  <circle cx="120" cy="180" r="0.6" fill="#aaccff" opacity="0.5"/>
+  <circle cx="380" cy="200" r="0.8" fill="#ffffff" opacity="0.5"/>
+  <circle cx="100" cy="380" r="0.6" fill="#88aaff" opacity="0.4"/>
+  <circle cx="420" cy="420" r="0.8" fill="#ffffff" opacity="0.4"/>
+
+  <!-- 标题 -->
+  <text x="270" y="80" text-anchor="middle" font-size="24" font-weight="bold" fill="#aaccff" letter-spacing="2">关卡选择</text>
+  <text x="270" y="105" text-anchor="middle" font-size="10" fill="#aaaacc" letter-spacing="1">CAMPAIGN · 20 ROUNDS</text>
+
+  <!-- 关卡网格 (4列 x 5行 = 20 关) -->
+  <!-- 第一行 (1-4) -->
+  <g font-family="-apple-system, sans-serif" text-anchor="middle">
+    <!-- Level 1 -->
+    <rect x="60" y="160" width="80" height="70" rx="6" fill="#0a1a30" stroke="#88ff88" stroke-width="2"/>
+    <text x="100" y="190" font-size="20" font-weight="bold" fill="#88ff88">1</text>
+    <text x="100" y="210" font-size="9" fill="#aaaacc">序章</text>
+    <text x="100" y="222" font-size="7" fill="#88aaff">EASY</text>
+
+    <!-- Level 2 -->
+    <rect x="160" y="160" width="80" height="70" rx="6" fill="#0a1a30" stroke="#88ff88" stroke-width="2"/>
+    <text x="200" y="190" font-size="20" font-weight="bold" fill="#88ff88">2</text>
+    <text x="200" y="210" font-size="9" fill="#aaaacc">侦察</text>
+    <text x="200" y="222" font-size="7" fill="#88aaff">EASY</text>
+
+    <!-- Level 3 -->
+    <rect x="260" y="160" width="80" height="70" rx="6" fill="#0a1a30" stroke="#88ff88" stroke-width="2"/>
+    <text x="300" y="190" font-size="20" font-weight="bold" fill="#88ff88">3</text>
+    <text x="300" y="210" font-size="9" fill="#aaaacc">神风烈焰</text>
+    <text x="300" y="222" font-size="7" fill="#88aaff">NORMAL</text>
+
+    <!-- Level 4 (Boss) -->
+    <rect x="360" y="160" width="80" height="70" rx="6" fill="#300a0a" stroke="#ff8866" stroke-width="2"/>
+    <text x="400" y="190" font-size="20" font-weight="bold" fill="#ff8866">4</text>
+    <text x="400" y="210" font-size="9" fill="#ffdd99">烈焰王</text>
+    <text x="400" y="222" font-size="7" fill="#ff8866">BOSS</text>
+  </g>
+
+  <!-- 第二行 (5-8) -->
+  <g font-family="-apple-system, sans-serif" text-anchor="middle">
+    <rect x="60" y="245" width="80" height="70" rx="6" fill="#0a1a30" stroke="#88aaff" stroke-width="1.5" opacity="0.85"/>
+    <text x="100" y="275" font-size="20" font-weight="bold" fill="#88ccff">5</text>
+    <text x="100" y="295" font-size="9" fill="#aaaacc">雷暴</text>
+
+    <rect x="160" y="245" width="80" height="70" rx="6" fill="#0a1a30" stroke="#88aaff" stroke-width="1.5" opacity="0.85"/>
+    <text x="200" y="275" font-size="20" font-weight="bold" fill="#88ccff">6</text>
+    <text x="200" y="295" font-size="9" fill="#aaaacc">极光</text>
+
+    <rect x="260" y="245" width="80" height="70" rx="6" fill="#0a1a30" stroke="#88aaff" stroke-width="1.5" opacity="0.85"/>
+    <text x="300" y="275" font-size="20" font-weight="bold" fill="#88ccff">7</text>
+    <text x="300" y="295" font-size="9" fill="#aaaacc">冰封</text>
+
+    <rect x="360" y="245" width="80" height="70" rx="6" fill="#0a1a30" stroke="#88aaff" stroke-width="1.5" opacity="0.85"/>
+    <text x="400" y="275" font-size="20" font-weight="bold" fill="#88ccff">8</text>
+    <text x="400" y="295" font-size="9" fill="#aaaacc">风暴</text>
+  </g>
+
+  <!-- 第三行 (9-12) -->
+  <g font-family="-apple-system, sans-serif" text-anchor="middle">
+    <rect x="60" y="330" width="80" height="70" rx="6" fill="#1a0a30" stroke="#aa88ff" stroke-width="1.5" opacity="0.85"/>
+    <text x="100" y="360" font-size="20" font-weight="bold" fill="#ccaaff">9</text>
+    <text x="100" y="380" font-size="9" fill="#aaaacc">幻境</text>
+
+    <rect x="160" y="330" width="80" height="70" rx="6" fill="#1a0a30" stroke="#aa88ff" stroke-width="1.5" opacity="0.85"/>
+    <text x="200" y="360" font-size="20" font-weight="bold" fill="#ccaaff">10</text>
+    <text x="200" y="380" font-size="9" fill="#aaaacc">折光</text>
+
+    <rect x="260" y="330" width="80" height="70" rx="6" fill="#1a0a30" stroke="#aa88ff" stroke-width="1.5" opacity="0.85"/>
+    <text x="300" y="360" font-size="20" font-weight="bold" fill="#ccaaff">11</text>
+    <text x="300" y="380" font-size="9" fill="#aaaacc">虚空</text>
+
+    <rect x="360" y="330" width="80" height="70" rx="6" fill="#300a0a" stroke="#ff8866" stroke-width="2" opacity="0.85"/>
+    <text x="400" y="360" font-size="20" font-weight="bold" fill="#ff8866">12</text>
+    <text x="400" y="380" font-size="9" fill="#ffdd99">雷暴王</text>
+  </g>
+
+  <!-- 第四行 (13-16) -->
+  <g font-family="-apple-system, sans-serif" text-anchor="middle">
+    <rect x="60" y="415" width="80" height="70" rx="6" fill="#301a0a" stroke="#ffaa66" stroke-width="1.5" opacity="0.7"/>
+    <text x="100" y="445" font-size="20" font-weight="bold" fill="#ffcc88">13</text>
+    <text x="100" y="465" font-size="9" fill="#aaaacc">陨石</text>
+
+    <rect x="160" y="415" width="80" height="70" rx="6" fill="#301a0a" stroke="#ffaa66" stroke-width="1.5" opacity="0.7"/>
+    <text x="200" y="445" font-size="20" font-weight="bold" fill="#ffcc88">14</text>
+    <text x="200" y="465" font-size="9" fill="#aaaacc">日冕</text>
+
+    <rect x="260" y="415" width="80" height="70" rx="6" fill="#301a0a" stroke="#ffaa66" stroke-width="1.5" opacity="0.7"/>
+    <text x="300" y="445" font-size="20" font-weight="bold" fill="#ffcc88">15</text>
+    <text x="300" y="465" font-size="9" fill="#aaaacc">星云</text>
+
+    <rect x="360" y="415" width="80" height="70" rx="6" fill="#301a0a" stroke="#ffaa66" stroke-width="1.5" opacity="0.7"/>
+    <text x="400" y="445" font-size="20" font-weight="bold" fill="#ffcc88">16</text>
+    <text x="400" y="465" font-size="9" fill="#aaaacc">黑洞</text>
+  </g>
+
+  <!-- 第五行 (17-20) -->
+  <g font-family="-apple-system, sans-serif" text-anchor="middle">
+    <rect x="60" y="500" width="80" height="70" rx="6" fill="#300020" stroke="#ff44aa" stroke-width="2" opacity="0.6"/>
+    <text x="100" y="530" font-size="20" font-weight="bold" fill="#ffaadd">17</text>
+    <text x="100" y="550" font-size="9" fill="#aaaacc">终末</text>
+
+    <rect x="160" y="500" width="80" height="70" rx="6" fill="#300020" stroke="#ff44aa" stroke-width="2" opacity="0.6"/>
+    <text x="200" y="530" font-size="20" font-weight="bold" fill="#ffaadd">18</text>
+    <text x="200" y="550" font-size="9" fill="#aaaacc">审判</text>
+
+    <rect x="260" y="500" width="80" height="70" rx="6" fill="#300020" stroke="#ff44aa" stroke-width="2" opacity="0.6"/>
+    <text x="300" y="530" font-size="20" font-weight="bold" fill="#ffaadd">19</text>
+    <text x="300" y="550" font-size="9" fill="#aaaacc">湮灭</text>
+
+    <rect x="360" y="500" width="80" height="70" rx="6" fill="#ff2244" stroke="#ffff88" stroke-width="3" opacity="0.9"/>
+    <text x="400" y="530" font-size="20" font-weight="bold" fill="#ffff88">20</text>
+    <text x="400" y="550" font-size="9" font-weight="bold" fill="#ffff88">★ 神王</text>
+  </g>
+
+  <!-- 当前选中的关卡高亮 -->
+  <rect x="252" y="152" width="96" height="86" rx="8" fill="none" stroke="#ffff44" stroke-width="2.5" opacity="0.95"/>
+  <text x="300" y="143" text-anchor="middle" font-size="9" fill="#ffff44">▶ 选择</text>
+
+  <!-- 难度图例 -->
+  <g transform="translate(60, 620)" font-family="-apple-system, sans-serif" font-size="9">
+    <text x="0" y="0" font-weight="bold" fill="#aaaacc">难度:</text>
+    <rect x="40" y="-9" width="10" height="10" fill="none" stroke="#88ff88" stroke-width="1.5"/>
+    <text x="55" y="0" fill="#88ff88">EASY</text>
+    <rect x="95" y="-9" width="10" height="10" fill="none" stroke="#88aaff" stroke-width="1.5"/>
+    <text x="110" y="0" fill="#88aaff">NORMAL</text>
+    <rect x="165" y="-9" width="10" height="10" fill="none" stroke="#aa88ff" stroke-width="1.5"/>
+    <text x="180" y="0" fill="#ccaaff">HARD</text>
+    <rect x="225" y="-9" width="10" height="10" fill="none" stroke="#ffaa66" stroke-width="1.5"/>
+    <text x="240" y="0" fill="#ffcc88">EXPERT</text>
+    <rect x="290" y="-9" width="10" height="10" fill="none" stroke="#ff44aa" stroke-width="1.5"/>
+    <text x="305" y="0" fill="#ffaadd">INSANE</text>
+  </g>
+
+  <!-- 统计信息 -->
+  <g transform="translate(60, 660)" font-family="-apple-system, sans-serif" font-size="10" fill="#aaaacc">
+    <text x="0" y="0">总关卡: <tspan font-weight="bold" fill="#aaccff">20</tspan></text>
+    <text x="120" y="0">Boss: <tspan font-weight="bold" fill="#ff8866">5</tspan></text>
+    <text x="200" y="0">已通关: <tspan font-weight="bold" fill="#88ff88">0/20</tspan></text>
+  </g>
+
+  <!-- 提示 -->
+  <text x="270" y="700" text-anchor="middle" font-size="9" fill="#666688">← → 移动 · ↑↓ 跳转 · ENTER 进入 · ESC 返回</text>
+
+  <!-- 水印 -->
+  <text x="270" y="755" text-anchor="middle" font-size="9" fill="#555577">截图: 关卡选择（20 关卡 + 5 Boss）</text>
+</svg>

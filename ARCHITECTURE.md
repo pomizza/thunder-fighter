@@ -755,7 +755,15 @@ draw(ctx):
 - `actions/setup-node@v4` → `v6`
 - `release-drafter/release-drafter@v5` → `v7`
 
-**为什么暂不升级**：
+**为什么不接受 dependabot 升级 PR（如 PR #4 crazy-max 5→6）**：
+- ✅ v5 → v6 是大版本（semver-major）
+- ✅ ghaction-github-labeler 是第三方 action（无本地测试工具）
+- ✅ 风险高于收益
+- ✅ v1.0.0 已稳定，labels workflow 工作正常
+- ✅ 已在 `.github/dependabot.yml` 加 ignore 规则（`crazy-max/*`, `release-drafter/*`）
+- ✅ 等 v1.1.0 集中升级 + 完整测试
+
+**为什么暂不升级**（actions/setup-node / actions/checkout）：
 - ✅ v1.0.0 已发布且 CI 测试通过（v4 跑通）
 - ✅ dependabot 3 个 PR 已关闭（已决策暂不升级）
 - ⚠️ 升级到 v6/v7 风险高（3 个大版本跳跃）

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 780" width="270" height="390" font-family="-apple-system, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#02020a"/>
+      <stop offset="50%" stop-color="#20051a"/>
+      <stop offset="100%" stop-color="#02020a"/>
+    </linearGradient>
+    <radialGradient id="boss-glow" cx="50%" cy="25%">
+      <stop offset="0%" stop-color="#3a0a30" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#02020a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="540" height="780" fill="url(#bg)"/>
+  <rect width="540" height="780" fill="url(#boss-glow)"/>
+
+  <!-- 星星 -->
+  <circle cx="80" cy="80" r="0.8" fill="#ddaaff" opacity="0.6"/>
+  <circle cx="200" cy="50" r="0.6" fill="#ffffff" opacity="0.5"/>
+  <circle cx="350" cy="100" r="0.8" fill="#ffaaff" opacity="0.5"/>
+  <circle cx="450" cy="60" r="0.6" fill="#ffffff" opacity="0.5"/>
+
+  <!-- HUD: Boss 血量条 -->
+  <text x="270" y="60" text-anchor="middle" font-size="12" fill="#ff8866" font-weight="bold">BOSS · 神风王 · 烈焰</text>
+  <rect x="120" y="70" width="300" height="14" rx="3" fill="#330000" stroke="#ff4444" stroke-width="1"/>
+  <rect x="122" y="72" width="180" height="10" rx="2" fill="#ff4444"/>
+  <text x="270" y="79" text-anchor="middle" font-size="9" fill="#ffffff">180 / 560</text>
+
+  <!-- 玩家信息 -->
+  <text x="20" y="30" font-size="10" fill="#88ff88">★ ×3</text>
+  <text x="20" y="50" font-size="10" fill="#ffdd44">HP 5/5</text>
+  <text x="520" y="30" text-anchor="end" font-size="12" fill="#ffffff">25,800</text>
+  <text x="520" y="50" text-anchor="end" font-size="10" fill="#88ff88">Combo 12x</text>
+
+  <!-- BOSS (烈焰 - 螺旋 AI) -->
+  <g transform="translate(270, 200)">
+    <!-- 旋转光环 -->
+    <ellipse cx="0" cy="0" rx="80" ry="80" fill="none" stroke="#ff5577" stroke-width="1" opacity="0.4" stroke-dasharray="4,4"/>
+    <ellipse cx="0" cy="0" rx="65" ry="65" fill="none" stroke="#ff88aa" stroke-width="0.8" opacity="0.3" transform="rotate(45)"/>
+
+    <!-- Boss 本体 -->
+    <ellipse cx="0" cy="0" rx="35" ry="35" fill="#3a0a30" stroke="#ff4477" stroke-width="2"/>
+    <ellipse cx="0" cy="0" rx="25" ry="25" fill="#1a0420" stroke="#ff88aa" stroke-width="1.5"/>
+    <circle cx="0" cy="0" r="10" fill="#ff5577"/>
+    <circle cx="0" cy="0" r="5" fill="#ffddff"/>
+
+    <!-- Boss 翼 -->
+    <polygon points="-35,0 -70,-15 -50,0 -70,15" fill="#ff4477" stroke="#ff88aa" stroke-width="1.5"/>
+    <polygon points="35,0 70,-15 50,0 70,15" fill="#ff4477" stroke="#ff88aa" stroke-width="1.5"/>
+  </g>
+
+  <!-- Boss 弹幕（8 方向环射） -->
+  <g fill="#ffaa44" opacity="0.8">
+    <circle cx="240" cy="270" r="3"/>
+    <circle cx="270" cy="245" r="3"/>
+    <circle cx="300" cy="270" r="3"/>
+    <circle cx="180" cy="320" r="3"/>
+    <circle cx="360" cy="320" r="3"/>
+    <circle cx="150" cy="380" r="3"/>
+    <circle cx="390" cy="380" r="3"/>
+    <circle cx="200" cy="430" r="3"/>
+    <circle cx="340" cy="430" r="3"/>
+    <circle cx="240" cy="450" r="3"/>
+    <circle cx="300" cy="450" r="3"/>
+  </g>
+
+  <!-- Boss 弹幕（螺旋弹幕，3 重） -->
+  <g fill="#ff8855" opacity="0.6">
+    <circle cx="180" cy="350" r="2.5"/>
+    <circle cx="220" cy="370" r="2.5"/>
+    <circle cx="260" cy="390" r="2.5"/>
+    <circle cx="300" cy="410" r="2.5"/>
+    <circle cx="340" cy="430" r="2.5"/>
+  </g>
+
+  <!-- 玩家（躲避中）-->
+  <g transform="translate(150, 650)">
+    <ellipse cx="0" cy="-2" rx="6" ry="9" fill="#aaffff"/>
+    <polygon points="0,-15 14,10 7,10 8,20 0,16 -8,20 -7,10 -14,10" fill="#2266dd" stroke="#88aaff" stroke-width="1.5"/>
+    <polygon points="-3,15 3,15 1,28 -1,28" fill="#ffaa33" opacity="0.7"/>
+  </g>
+
+  <!-- 玩家子弹 -->
+  <g fill="#aaffff">
+    <rect x="146" y="610" width="3" height="12"/>
+    <rect x="150" y="580" width="3" height="12"/>
+    <rect x="154" y="550" width="3" height="12"/>
+  </g>
+
+  <!-- 冲击波效果（炸弹使用中） -->
+  <g transform="translate(150, 600)">
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#ffffaa" stroke-width="2" opacity="0.5"/>
+    <circle cx="0" cy="0" r="100" fill="none" stroke="#ffaa44" stroke-width="1.5" opacity="0.4"/>
+    <circle cx="0" cy="0" r="130" fill="none" stroke="#ff6622" stroke-width="1" opacity="0.3"/>
+  </g>
+
+  <!-- 浮动文字 -->
+  <text x="200" y="600" text-anchor="middle" font-size="13" font-weight="bold" fill="#aaffff">清屏! -3</text>
+  <text x="270" y="350" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffdd44">+500</text>
+  <text x="270" y="370" text-anchor="middle" font-size="9" fill="#88ff88">12x COMBO</text>
+
+  <!-- 底部提示 -->
+  <text x="270" y="730" text-anchor="middle" font-size="10" fill="#88ccff">⚡ 炸弹冷却中 ⚡</text>
+  <text x="270" y="755" text-anchor="middle" font-size="9" fill="#555577">截图 3: Boss 战（烈焰 8 方向弹幕）</text>
+</svg>

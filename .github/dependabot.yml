@@ -1,46 +1,81 @@
 # Dependabot 配置
 # 文档: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 #
-# 注意：本项目坚持 0 npm 依赖，所以**不监控 npm dependencies/devDependencies**
-# 仅监控 GitHub Actions 版本（因为 CI 依赖第三方 actions）
+# 【重要】本项目坚持 0 npm 依赖（仅原生 HTML5 + JavaScript + Canvas）
+# 所以**只监控 GitHub Actions 版本**
+#
+# 【v1.0.0 状态】
+# - 4 个 actions 升级 PR 已关闭（PR #1 #2 #3 #4）
+# - open-pull-requests-limit: 0（彻底禁用自动 PR）
+# - 不会自动开新 PR（即使 labels workflow 触发了 push 事件）
+# - 升级将在 v1.1.0 统一处理
+#
+# 【4 重 ignore 防御纵深】
+# Layer 1: Major 版本升级（破坏性变更）
+# Layer 2: Minor 版本升级（新特性）
+# Layer 3: 第三方 actions（无本地测试工具）
+# Layer 4: first-party 特定 actions（Node 20 弃用警告）
+# Layer 5: open-pull-requests-limit: 0（硬性 PR 限制）
+# → 任何一层失效，其他层仍能防御
+
+# 【避免 labels workflow 触发 PR 的策略】
+# 之前 PR #4 由 labels workflow 触发：
+# 1. labels.yml 改动 → push event
+# 2. dependabot 扫描 .github/workflows/labels.yml
+# 3. 发现 crazy-max/ghaction-github-labeler 有 v6 → 开 PR
+# 现在：open-pull-requests-limit: 0 → 永远不开 PR（即使扫描到）
+# 完全避免自动开 PR（即使有 workflow 改动）
 
 version: 2
 updates:
   # === GitHub Actions 版本监控 ===
   - package-ecosystem: "github-actions"
     directory: "/"
-    # 禁用自动开 PR（改为本地依赖检查）
-    # 升级时机：手动执行
-    # 原因：v1.0.0 CI 稳定，避免被 actions 升级破坏
+    # 禁用自动开 PR（v1.0.0 状态）
     open-pull-requests-limit: 0
+    # 忽略 workflows 目录（不想被自动升级）
+    # 因为：升级 actions 风险高 + 无 act 工具本地测试
+    #
+    # === 4 重 ignore 防御纵深 ===
+    ignore:
+      # ── Layer 1: 阻止 major 升级 (破坏性变更，需人工测试) ──
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+      # ── Layer 2: 阻止 minor 升级 (新特性，需人工测试) ──
+      - dependency-name: "*"
+        update-types: ["version-update:semver-minor"]
+      # ── Layer 3: 阻止第三方 actions 升级（无本地测试工具） ──
+      # PR #4 (ghaction-github-labeler 5→6) 已关闭
+      # v1.1.0 时手工升级
+      - dependency-name: "crazy-max/*"
+      - dependency-name: "release-drafter/*"
+      # ── Layer 4: 阻止特定 first-party actions 升级 ──
+      # 原因：这些 actions 在 v1.0.0 已稳定使用
+      # - actions/checkout@v4 (依赖 Node 20，弃用警告)
+      # - actions/setup-node@v4 (依赖 Node 20，弃用警告)
+      # - actions/upload-artifact@v4 (依赖 Node 20，弃用警告)
+      # - actions/download-artifact@v4 (同上)
+      # v1.1.0 计划升级到 v5（解决 Node 24 弃用）
+      - dependency-name: "actions/checkout"
+      - dependency-name: "actions/setup-node"
+      - dependency-name: "actions/upload-artifact"
+      - dependency-name: "actions/download-artifact"
+      # ── 保留 patch 升级 (actions/setup-node v4.0.1 之类) ──
+      # 风险：patch 升级一般修 bug，但 actions 的 patch 可能含不兼容变更
+      # 决策：保留 patch（依赖人工 + 4 重防御）
     schedule:
-      interval: "weekly"
-      # 每周一 04:00 UTC 检查更新（默认）
+      interval: "monthly"  # 降低频率（原来 weekly → monthly）
       day: "monday"
       time: "04:00"
       timezone: "UTC"
-    # PR 限制
-    open-pull-requests-limit: 3
-    # 自动合并补丁版本（修复 bug）
-    # 重要：minor/major 仍需人工 review
-    # 注意：必须先在 GitHub repo 设置中启用 "Allow auto-merge"
-    # 才能让以下规则生效
-    # （项目当前是占位仓库，无此权限，所以保持注释状态）
-    # target-branch: "master"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    # 重要：必须先在 GitHub repo 设置中启用 "Allow auto-merge"
+    # 才能让以下规则生效（项目当前无此权限，所以保持注释状态）
     # commit-message:
     #   prefix: "chore(actions)"
     #   include: "scope"
-    # labels:
-    #   - "dependencies"
-    #   - "github-actions"
-    #   - "automated"
-    # ignore:
-    #   # 忽略 major 更新（破坏性变更需人工处理）
-    #   - dependency-name: "*"
-    #     update-types: ["version-update:semver-major"]
-    #   # 保持 actions/setup-node v4（如果工作流要支持 v20+ Node，需手动改）
-    #   - dependency-name: "actions/setup-node"
-    #     versions: [">= 5.0.0"]
 
   # === npm 监控（明确禁用） ===
   # 本项目坚持 0 依赖，所以**明确禁用** npm ecosystem 监控
@@ -49,8 +84,6 @@ updates:
   #   directory: "/"
   #   schedule:
   #     interval: "weekly"
-  #   # 重要：devDependencies 也要监控
-  #   # 不要自动 merge major 更新
   #   groups:
   #     dev-dependencies:
   #       dependency-type: "development"
@@ -65,3 +98,9 @@ updates:
   #   directory: "/"
   #   schedule:
   #     interval: "weekly"
+
+  # === 未来 v1.1.0 恢复自动升级 ===
+  # 1. 删 open-pull-requests-limit: 0 → 改回 3
+  # 2. 删 ignore 中的 ["version-update:semver-major", "version-update:semver-minor"]
+  # 3. 启用 commit-message (需要 "Allow auto-merge" 设置)
+  # 4. 跑 npm test 验证
